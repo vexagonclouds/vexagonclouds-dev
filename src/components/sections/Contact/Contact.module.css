@@ -1,0 +1,125 @@
+/* Contact — net-new form band in A's visual language. Light (bone) ground so it
+   flows out of the Closing CTA above; dark-on-light inputs with hairline borders
+   and a Proxy-Blue submit. Fluid tokens keep it readable at every width. */
+
+.contact {
+  position: relative;
+  width: 100%;
+  background: var(--pp-bone);
+  color: var(--pp-ink);
+  padding: clamp(56px, 8vw, 112px) var(--pp-gutter);
+  overflow: hidden;
+}
+.inner {
+  max-width: 920px;
+  margin: 0 auto;
+  border: 1px solid rgba(22, 23, 24, 0.15);
+  border-radius: clamp(16px, 2vw, 24px);
+  padding: clamp(28px, 4vw, 56px);
+}
+.kicker {
+  display: inline-block;
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--pp-blue);
+  margin-bottom: var(--pp-stack);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 2.2vw, 24px);
+}
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2.2vw, 24px);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+.label {
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: rgba(22, 23, 24, 0.7);
+}
+.input {
+  width: 100%;
+  font-family: inherit;
+  font-size: var(--pp-fs-body);
+  color: var(--pp-ink);
+  background: rgba(255, 255, 255, 0.6);
+  border: 0.5px solid rgba(22, 23, 24, 0.22);
+  border-radius: 10px;
+  padding: 0.8em 0.95em;
+  transition:
+    border-color 0.3s var(--pp-ease-out),
+    background-color 0.3s var(--pp-ease-out);
+}
+.input::placeholder {
+  color: rgba(22, 23, 24, 0.4);
+}
+.input:focus {
+  outline: none;
+  border-color: var(--pp-blue);
+  background: #fff;
+}
+textarea.input {
+  resize: vertical;
+  min-height: 7.5em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(14px, 2vw, 22px);
+  margin-top: 0.4em;
+}
+.submit {
+  display: inline-flex;
+  align-items: center;
+  font-family: inherit;
+  font-size: var(--pp-fs-body);
+  font-weight: 500;
+  color: var(--pp-bone);
+  background: var(--pp-blue);
+  border: none;
+  border-radius: 999px;
+  padding: 0.85em 1.6em;
+  cursor: pointer;
+  transition:
+    transform 0.3s var(--pp-ease-out),
+    filter 0.3s var(--pp-ease-out);
+}
+.submit:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+.direct {
+  font-size: var(--pp-fs-body);
+  color: rgba(22, 23, 24, 0.7);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(22, 23, 24, 0.3);
+  padding-bottom: 2px;
+  transition: color 0.3s var(--pp-ease-out);
+}
+.direct:hover {
+  color: var(--pp-blue);
+  border-color: var(--pp-blue);
+}
+.status {
+  min-height: 1.2em;
+  font-size: var(--pp-fs-small);
+  color: rgba(22, 23, 24, 0.7);
+}
+
+@media (max-width: 639px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

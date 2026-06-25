@@ -1,0 +1,22 @@
+{
+  "title": {
+    "lead": ["The", "future,"],
+    "accent": "deployed."
+  },
+  "body": "We architect, migrate, and modernize the cloud for ambitious teams. Cloud excellence meets AI adoption — engineered for measurable outcomes.",
+  "cta": {
+    "primary": { "label": "Schedule Consultation", "href": "/contact" },
+    "secondary": { "label": "View Our Work", "href": "/portfolio" }
+  },
+  "statement": "AWS-Focused Cloud Consultancy · Est. 2024",
+  "documents": [
+    { "cat": "Compute", "title": "AWS Lambda", "sub": "Serverless functions", "chips": [{ "t": "Auto-scale" }, { "t": "Live" }] },
+    { "cat": "AI / ML", "title": "Amazon SageMaker", "sub": "ML pipeline", "chips": [{ "t": "Training", "due": true }, { "t": "HIPAA", "due": true }] },
+    { "cat": "Storage", "title": "Amazon S3", "sub": "Data lake", "chips": [{ "t": "Durable" }, { "t": "Encrypted" }] },
+    { "cat": "Containers", "title": "Amazon ECS", "sub": "Microservices", "chips": [{ "t": "Scalable" }, { "t": "Live" }] },
+    { "cat": "Network", "title": "CloudFront", "sub": "Global CDN", "chips": [{ "t": "Fast" }, { "t": "Cached" }] },
+    { "cat": "Database", "title": "DynamoDB", "sub": "NoSQL", "chips": [{ "t": "Low-latency" }, { "t": "Live" }] },
+    { "cat": "Security", "title": "PCI DSS", "sub": "Level 1 certified", "chips": [{ "t": "Audited" }, { "t": "Compliant" }] },
+    { "cat": "Analytics", "title": "QuickSight", "sub": "Dashboards", "chips": [{ "t": "Real-time" }, { "t": "Shared" }] }
+  ]
+}

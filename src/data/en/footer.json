@@ -1,0 +1,38 @@
+{
+  "brand": {
+    "about": "Transform your business with cloud and AI excellence. AWS-focused cloud consultancy with 25+ years of combined experience."
+  },
+  "columns": {
+    "links": {
+      "heading": "Quick Links",
+      "items": [
+        { "label": "Services", "href": "#" },
+        { "label": "About", "href": "/referrals" },
+        { "label": "Portfolio", "href": "#portfolio" },
+        { "label": "Contact", "href": "#contact" }
+      ]
+    },
+    "contact": {
+      "heading": "Contact",
+      "address": "Niranjan Park, C-Block, New Delhi 110043",
+      "emails": ["info@vexagonclouds.com", "support@vexagonclouds.com"],
+      "social": [
+        { "label": "LinkedIn", "href": "#" },
+        { "label": "Twitter", "href": "#" },
+        { "label": "GitHub", "href": "#" }
+      ]
+    },
+    "newsletter": {
+      "heading": "Newsletter",
+      "text": "Get the latest cloud and AI insights delivered to your inbox.",
+      "placeholder": "Your email",
+      "submit": "Subscribe",
+      "done": "Subscribed ✓"
+    }
+  },
+  "legal": "© 2026 VexagonClouds. All rights reserved.",
+  "legalLinks": [
+    { "label": "Privacy Policy", "href": "#" },
+    { "label": "Terms of Service", "href": "#" }
+  ]
+}

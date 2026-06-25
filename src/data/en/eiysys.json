@@ -1,0 +1,37 @@
+{
+  "kicker": "— In partnership with EIY SYS",
+  "title": { "lead": ["Powered", "by"], "accent": ["EIY", "SYS"] },
+  "sub": "Extend your build with EIY SYS — web, mobile, e-commerce and blockchain services.",
+  "services": [
+    {
+      "id": "mobile",
+      "name": "Mobile App Development Services",
+      "desc": "EIY SYS is the best web development company in USA. We offer offshore web development services. Get our web development consultancy services and build a fully customized and functional website for your business."
+    },
+    {
+      "id": "shopify",
+      "name": "Shopify Store Development Services",
+      "desc": "Want to build an efficient eCommerce store? We can help you quickly get started on Shopify at the most affordable prices with our shopify store development services."
+    },
+    {
+      "id": "web",
+      "name": "Web Development Services",
+      "desc": "EIY SYS is the best web development company. We offer offshore web development services. Get our web development consultancy services and build a fully customized and functional website for your business."
+    },
+    {
+      "id": "crypto-listing",
+      "name": "Crypto Exchange Listing Solutions",
+      "desc": "If you want to gain more people accessibility for your crypto coins, choosing an experienced cryptocurrency listing services agency can be very crucial. At EIY SYS, our professional exchange listing services will give that competitive edge among others for your trading activities. You can stay stress-free for any type of technical assistance."
+    },
+    {
+      "id": "hyperledger",
+      "name": "HyperLedger Blockchain Development",
+      "desc": "To fully utilize this technology, just connect blockchain with our 'HyperLedger Blockchain Development' to maximize its potential. With its blockchain-based business integration, EIY SYS can lead innovation and boost productivity as it progresses towards advanced technology."
+    },
+    {
+      "id": "blockchain-audit",
+      "name": "Blockchain Auditing Service",
+      "desc": "We address technological challenges, present innovative concepts, and deliver unmatched value. We use advanced blockchain auditing services to create unique products. Come along as we redefine the future!"
+    }
+  ]
+}

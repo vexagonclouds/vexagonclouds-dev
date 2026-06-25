@@ -1,0 +1,340 @@
+/* Problem section (Figma 17:2). Full-bleed dark ground: a left editorial column
+   (eyebrow + hand-drawn underline, headline, body) and three hairline data cards
+   on the right — VOLUME (tall, blue zigzag), FRICTION, RISK. Lengths are
+   fractions of the 1512px frame so it stays pixel-faithful at 1512 and scales
+   proportionally. Children are positioned against `.content`. */
+
+.problem {
+  --pp-hairline: #313131;
+
+  position: relative;
+  width: 100%;
+  min-height: min(100vh, 800px);
+  display: flex;
+  align-items: center;
+  padding-inline: calc(80 * var(--pp-scale)) calc(76 * var(--pp-scale));
+  background: var(--pp-ink);
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: calc(498.01 * var(--pp-scale));
+}
+
+/* ── Left editorial column ─────────────────────────────────────────────────*/
+.eyebrow {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(666.01 * var(--pp-scale));
+  font-weight: 500;
+  font-size: calc(14 * var(--pp-scale));
+  line-height: normal;
+  letter-spacing: calc(1.4 * var(--pp-scale));
+  color: #fff;
+}
+.eyebrowRule {
+  position: absolute;
+  left: calc(0.05 * var(--pp-scale));
+  top: calc(17 * var(--pp-scale));
+  width: calc(75.05 * var(--pp-scale));
+  height: calc(9.43 * var(--pp-scale));
+  transform: rotate(0.33deg);
+}
+.eyebrowRule img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.headline {
+  position: absolute;
+  left: 0;
+  top: calc(40 * var(--pp-scale));
+  width: calc(666.01 * var(--pp-scale));
+  font-weight: 500;
+  font-size: calc(39 * var(--pp-scale));
+  line-height: normal;
+  letter-spacing: calc(-0.39 * var(--pp-scale));
+  color: var(--pp-bone);
+}
+
+.body {
+  position: absolute;
+  left: 0;
+  top: calc(157.01 * var(--pp-scale));
+  width: calc(551 * var(--pp-scale));
+  font-weight: 400;
+  font-size: calc(16 * var(--pp-scale));
+  line-height: 1.5;
+  letter-spacing: calc(0.16 * var(--pp-scale));
+  color: var(--pp-bone);
+}
+
+/* ── Left-column feature list + CTA (fills the lower-left) ──────────────────── */
+.points {
+  position: absolute;
+  left: 0;
+  top: calc(285 * var(--pp-scale));
+  width: calc(520 * var(--pp-scale));
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(14 * var(--pp-scale));
+}
+.point {
+  position: relative;
+  padding-left: calc(22 * var(--pp-scale));
+  font-weight: 400;
+  font-size: calc(16 * var(--pp-scale));
+  line-height: 1.4;
+  color: rgba(247, 244, 240, 0.85);
+}
+.point::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(9 * var(--pp-scale));
+  width: calc(6 * var(--pp-scale));
+  height: calc(6 * var(--pp-scale));
+  border-radius: 50%;
+  background: var(--pp-blue);
+}
+.cta {
+  position: absolute;
+  left: 0;
+  top: calc(410 * var(--pp-scale));
+}
+
+/* ── Data cards ─────────────────────────────────────────────────────────────*/
+.card {
+  position: absolute;
+  border: 0.5px solid var(--pp-hairline);
+  overflow: hidden;
+}
+.cardLabel {
+  position: absolute;
+  top: calc(17.5 * var(--pp-scale));
+  font-weight: 400;
+  font-size: calc(12 * var(--pp-scale));
+  line-height: 1.5;
+  letter-spacing: calc(1.2 * var(--pp-scale));
+  color: #fff;
+  white-space: nowrap;
+  z-index: 1;
+}
+.cardCopy {
+  position: absolute;
+  top: calc(53.5 * var(--pp-scale));
+  width: calc(240 * var(--pp-scale));
+  font-weight: 500;
+  font-size: calc(16 * var(--pp-scale));
+  line-height: 1.5;
+  letter-spacing: calc(0.16 * var(--pp-scale));
+  color: #fff;
+  z-index: 1;
+}
+
+/* VOLUME — tall left card carrying the blue zigzag graphic */
+.cardVolume {
+  left: calc(685.99 * var(--pp-scale));
+  top: calc(1 * var(--pp-scale));
+  width: calc(325 * var(--pp-scale));
+  height: calc(496.99 * var(--pp-scale));
+}
+.cardVolume .cardLabel,
+.cardVolume .cardCopy {
+  left: calc(18.5 * var(--pp-scale));
+}
+.volumeGraphic {
+  position: absolute;
+  left: calc(-0.5 * var(--pp-scale));
+  top: calc(91.5 * var(--pp-scale));
+  width: calc(341 * var(--pp-scale));
+  height: calc(341 * var(--pp-scale));
+}
+.graphicInner {
+  position: absolute;
+  inset: -7.65% -4.03% -8.16% -5.44%;
+}
+.graphicInner svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* The smaller zigzag echoed in FRICTION and RISK. */
+.cardGraphic {
+  position: absolute;
+  top: calc(40 * var(--pp-scale));
+  right: calc(-52 * var(--pp-scale));
+  width: calc(174 * var(--pp-scale));
+  height: calc(174 * var(--pp-scale));
+  z-index: 0;
+}
+
+/* FRICTION — top-right card */
+.cardFriction {
+  left: calc(1031.12 * var(--pp-scale));
+  top: calc(1 * var(--pp-scale));
+  width: calc(325 * var(--pp-scale));
+  height: calc(242 * var(--pp-scale));
+}
+/* RISK — bottom-right card */
+.cardRisk {
+  left: calc(1031.12 * var(--pp-scale));
+  top: calc(269 * var(--pp-scale));
+  width: calc(325 * var(--pp-scale));
+  height: calc(229.01 * var(--pp-scale));
+}
+.cardFriction .cardLabel,
+.cardFriction .cardCopy,
+.cardRisk .cardLabel,
+.cardRisk .cardCopy {
+  left: calc(15.5 * var(--pp-scale));
+}
+.cardRisk .cardLabel {
+  top: calc(19.5 * var(--pp-scale));
+}
+.cardRisk .cardCopy {
+  top: calc(55.5 * var(--pp-scale));
+}
+
+/* ── Reveal masks ───────────────────────────────────────────────────────────
+   Extend the global .r-word with padding + negative margin so the clip never
+   crops an ascender/descender (scoped to .problem). */
+.problem :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}
+
+/* ── Hover "draw" interaction ───────────────────────────────────────────────
+   Each card's zigzag rests with dasharray normalised to 100 (pathLength=100).
+   Default render is DRAWN (settled / no-JS / reduced motion); the GSAP hook arms
+   the hidden state and wires hover for the small cards. */
+.zigzagPath {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 0;
+}
+
+/* ── Tablet + mobile (<1024): the coordinate field reflows to a single column —
+   editorial block (eyebrow → headline → body) then the three data cards stacked
+   full-width, their internals flowing. Fluid type; reveal animation unchanged. ── */
+@media (max-width: 1023px) {
+  .problem {
+    min-height: 0;
+    align-items: stretch;
+    padding: var(--pp-stack) var(--pp-gutter);
+  }
+  .content {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 4vw, 28px);
+  }
+  .problem .eyebrow {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    font-size: var(--pp-fs-small);
+    letter-spacing: 0.04em;
+  }
+  /* The hand-drawn underline is a desktop accent; it collides with the reflowed
+     headline, so drop it on compact (do less). */
+  .problem .eyebrowRule {
+    display: none;
+  }
+  .problem .headline {
+    position: static;
+    top: auto;
+    width: auto;
+    font-size: var(--pp-fs-h2);
+    letter-spacing: -0.01em;
+  }
+  .problem .body {
+    position: static;
+    top: auto;
+    width: auto;
+    font-size: var(--pp-fs-body);
+  }
+  .problem .points {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    gap: 12px;
+  }
+  .problem .point {
+    font-size: var(--pp-fs-body);
+    padding-left: 20px;
+  }
+  .problem .point::before {
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+  }
+  .problem .cta {
+    position: static;
+    left: auto;
+    top: auto;
+  }
+  /* Cards → full-width stacked blocks (override the per-card absolute coords). */
+  .problem .card,
+  .cardVolume,
+  .cardFriction,
+  .cardRisk {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    padding: clamp(18px, 5vw, 28px);
+  }
+  .problem .cardVolume {
+    margin-top: clamp(8px, 3vw, 20px);
+  }
+  .problem .cardLabel,
+  .problem .cardCopy {
+    position: static;
+    inset: auto;
+    left: auto;
+    top: auto;
+    width: auto;
+  }
+  .problem .cardLabel {
+    font-size: var(--pp-fs-small);
+    margin-bottom: 8px;
+  }
+  .problem .cardCopy {
+    font-size: var(--pp-fs-body);
+  }
+  /* VOLUME zigzag → keep the desktop treatment: a square box (the .graphicInner
+     negative insets are calibrated to that square to recover the SVG's native
+     373×395 ratio — don't touch them) that spans the full card width so its right
+     tips reach + slightly bleed past the right border, exactly like the web layout.
+     Break it out of the card padding so it hits both edges. */
+  .problem .volumeGraphic {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: auto;
+    /* Box left sits on the card's left border (left tip lands ~3.6% in, as on web);
+       the extra negative right margin makes the box ~5% wider than the card so the
+       right tips bleed past the right border and clip there — the desktop look. */
+    margin-top: 16px;
+    margin-left: calc(-1 * clamp(18px, 5vw, 28px));
+    margin-right: calc(-1 * clamp(18px, 5vw, 28px) - 6%);
+    height: auto;
+    aspect-ratio: 1;
+  }
+  /* Small-card accent zigzag → dropped on compact: it's a decorative desktop
+     flourish only, and the cards read cleaner without it. */
+  .problem .cardGraphic {
+    display: none;
+  }
+}

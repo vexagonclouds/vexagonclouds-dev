@@ -1,0 +1,28 @@
+{
+  "eyebrow": "OUR CAPABILITIES",
+  "headline": "Why ambitious teams choose VexagonClouds.",
+  "body": "Transform your business with cloud and AI excellence. We are an AWS-focused cloud consultancy with 25+ years of combined experience, engineered to deliver measurable outcomes rather than slideware.",
+  "points": [
+    "AWS-certified solutions architects",
+    "Fixed-scope projects or ongoing retainer",
+    "SOC 2, HIPAA & PCI DSS-ready delivery"
+  ],
+  "cta": { "label": "See our work", "href": "#portfolio" },
+  "cards": [
+    {
+      "id": "volume",
+      "label": "EXPERTISE",
+      "copy": "25+ years of combined experience across 30+ successful cloud and AI projects."
+    },
+    {
+      "id": "friction",
+      "label": "OUTCOMES",
+      "copy": "Up to 43% lower cloud costs and measurable performance gains for the teams we partner with."
+    },
+    {
+      "id": "risk",
+      "label": "TRUST",
+      "copy": "98% client satisfaction across engagements spanning 3 countries."
+    }
+  ]
+}

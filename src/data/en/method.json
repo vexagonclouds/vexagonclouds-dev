@@ -1,0 +1,32 @@
+{
+  "title": { "segs": ["How we work,", "zero surprises."] },
+  "lede": "A clear, repeatable engagement — from the first audit to an ongoing partnership. The same team stays with you end to end.",
+  "steps": [
+    {
+      "num": "01",
+      "name": "Assess",
+      "desc": "We audit your current architecture, costs and goals to map the highest-impact moves."
+    },
+    {
+      "num": "02",
+      "name": "Architect",
+      "desc": "We design a secure, cloud-native architecture tailored to your stack and compliance needs."
+    },
+    {
+      "num": "03",
+      "name": "Migrate",
+      "desc": "We execute phased, zero-downtime migration with rollback safety at every step."
+    },
+    {
+      "num": "04",
+      "name": "Optimize",
+      "desc": "We tune cost, performance and reliability — auto-scaling, caching and FinOps."
+    },
+    {
+      "num": "05",
+      "name": "Support",
+      "desc": "We stay on as your partner: monitoring, iteration and regular roadmap reviews."
+    }
+  ],
+  "link": { "label": "Start a conversation", "href": "#contact" }
+}

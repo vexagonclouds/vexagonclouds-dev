@@ -1,0 +1,354 @@
+/* Menu — open state (Figma 245:647). A rounded bone card hanging from the
+   navbar's right edge; it unfolds from the Close pill's rectangle via clip-path.
+   Ported from design-final/styles/menu.css (panel side). data-state on the menu
+   root drives the transitions; the navbar pill morph lives in Navbar.module.css. */
+
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  visibility: hidden;
+  pointer-events: none;
+  transition: visibility 0s linear 0.9s;
+}
+.menu[data-state="open"] {
+  visibility: visible;
+  pointer-events: auto;
+  transition: visibility 0s linear 0s;
+}
+
+/* Whisper scrim — click-outside-to-close target (a full-bleed close button). */
+.scrim {
+  position: absolute;
+  inset: 0;
+  display: block;
+  border: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background: rgba(22, 23, 24, 0.12);
+  opacity: 0;
+  transition: opacity 0.4s var(--pp-ease-out);
+}
+.menu[data-state="open"] .scrim {
+  opacity: 1;
+}
+
+/* The card. */
+.panel {
+  position: absolute;
+  width: calc(554 * var(--pp-scale));
+  height: calc(554 * var(--pp-scale));
+  top: calc(55.18 * var(--pp-scale));
+  right: calc(var(--pp-nav-inset) - 9 * var(--pp-scale));
+  background: var(--pp-bone);
+  border: 0.5px solid rgba(22, 23, 24, 0.08);
+  border-radius: calc(10 * var(--pp-scale));
+  overflow: hidden;
+  filter: drop-shadow(0 20px 34px rgba(22, 23, 24, 0.32))
+    drop-shadow(0 3px 8px rgba(22, 23, 24, 0.22));
+  opacity: 0;
+  clip-path: inset(1.5921% 1.6245% 89.3827% 75.2708% round 1.461%);
+  transition:
+    opacity 0.26s var(--pp-ease-out) 0.58s,
+    clip-path 0.9s var(--pp-ease-out);
+}
+.menu[data-state="open"] .panel {
+  opacity: 1;
+  clip-path: inset(0% 0% 0% 0% round 1.8051%);
+  transition:
+    opacity 0.29s var(--pp-ease-out),
+    clip-path 1.2s var(--pp-ease-out);
+}
+
+/* FR | EN */
+.lang {
+  position: absolute;
+  left: calc(44 * var(--pp-scale));
+  top: calc(27 * var(--pp-scale));
+  margin: 0;
+  font-family: var(--pp-font);
+  font-weight: 500;
+  font-size: calc(20 * var(--pp-scale));
+  line-height: 1;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+}
+.langCurrent {
+  color: var(--pp-ink);
+}
+.langAlt {
+  color: var(--pp-blue);
+  text-decoration: none;
+}
+.langAlt:hover,
+.langAlt:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Nav links */
+.navLinks {
+  position: absolute;
+  left: calc(38 * var(--pp-scale));
+  top: calc(123 * var(--pp-scale));
+  width: calc(311 * var(--pp-scale));
+  display: flex;
+  flex-direction: column;
+  gap: calc(22 * var(--pp-scale));
+}
+.link {
+  display: block;
+  overflow: hidden;
+  /* negative block margin offsets the copies' padding (below) so the mask gains
+     descender headroom — the roll fully clears the "p" tails — while each link's
+     text position and the column rhythm stay pixel-identical to the source */
+  margin-block: -0.12em;
+  font-family: var(--pp-font);
+  font-weight: 500;
+  font-size: calc(49 * var(--pp-scale));
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--pp-ink);
+  text-decoration: none;
+}
+.link:focus-visible {
+  outline: none;
+}
+/* The menu-open reveal layer (rises as a block when the panel unfolds). Made the
+   positioning context so the absolute clone stays parented here in both transform
+   states (open sets transform:none, which would otherwise drop the containing block). */
+.linkText {
+  display: block;
+  position: relative;
+  transform: translateY(108%);
+  transition: transform 0.51s var(--pp-ease-out);
+}
+.menu[data-state="open"] .linkText {
+  transform: none;
+  transition: transform 0.8s var(--pp-ease-out);
+}
+
+/* Hover roll-to-blue — same mechanic as the Trust certs: two stacked copies in the
+   masked link; on hover the ink word rolls out the top while a Proxy-Blue copy rolls
+   up from below to replace it. The clone parks one line down (top:100%) and both ride
+   the same -100% so the swap lands pixel-aligned. */
+.linkMain,
+.linkClone {
+  display: block;
+  /* padded so each copy is one line plus descender headroom; the clone parks one
+     padded-line down and both ride -100%, so the swap stays pixel-aligned */
+  padding: 0.12em 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.linkMain {
+  color: var(--pp-ink);
+}
+.linkClone {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: var(--pp-blue);
+}
+.link:hover .linkMain,
+.link:hover .linkClone,
+.link:focus-visible .linkMain,
+.link:focus-visible .linkClone {
+  transform: translateY(-100%);
+}
+
+/* Bottom row: P-mark (left) · socials (right). */
+.foot {
+  position: absolute;
+  left: calc(38 * var(--pp-scale));
+  right: calc(48 * var(--pp-scale));
+  bottom: calc(27.7 * var(--pp-scale));
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.logo {
+  display: block;
+  width: calc(24 * var(--pp-scale));
+  line-height: 0;
+}
+.logo svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.logo :global(.lk-mark__stem) {
+  fill: var(--pp-ink);
+}
+.logo :global(.lk-mark__blade) {
+  fill: var(--pp-blue);
+}
+.social {
+  display: flex;
+  align-items: center;
+  gap: calc(9 * var(--pp-scale));
+  color: var(--pp-ink);
+}
+.socialLink {
+  display: inline-flex;
+  width: calc(24 * var(--pp-scale));
+  height: calc(24 * var(--pp-scale));
+  color: inherit;
+  transition:
+    color 0.3s var(--pp-ease-out),
+    transform 0.3s var(--pp-ease-out);
+}
+.socialLink:hover,
+.socialLink:focus-visible {
+  color: var(--pp-blue);
+  outline: none;
+}
+.socialLink img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Content stagger — FR|EN, then the four links, then the foot. */
+.lang,
+.foot {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.45s var(--pp-ease-out),
+    transform 0.45s var(--pp-ease-out);
+}
+.menu[data-state="open"] .lang,
+.menu[data-state="open"] .foot {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.53s var(--pp-ease-out),
+    transform 0.67s var(--pp-ease-out);
+}
+.menu[data-state="open"] .lang {
+  transition-delay: 0.11s;
+}
+.menu[data-state="open"] .link:nth-child(1) .linkText {
+  transition-delay: 0.16s;
+}
+.menu[data-state="open"] .link:nth-child(2) .linkText {
+  transition-delay: 0.24s;
+}
+.menu[data-state="open"] .link:nth-child(3) .linkText {
+  transition-delay: 0.32s;
+}
+.menu[data-state="open"] .link:nth-child(4) .linkText {
+  transition-delay: 0.4s;
+}
+.menu[data-state="open"] .foot {
+  transition-delay: 0.48s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrim,
+  .panel,
+  .lang,
+  .foot,
+  .linkText {
+    transition: none !important;
+    transition-delay: 0s !important;
+    transform: none !important;
+  }
+  /* No roll — fall back to a plain colour swap so hover still reads. */
+  .linkMain,
+  .linkClone {
+    transition: none;
+  }
+  .link:hover .linkMain,
+  .link:hover .linkClone,
+  .link:focus-visible .linkMain,
+  .link:focus-visible .linkClone {
+    transform: none;
+  }
+  .link:hover .linkMain,
+  .link:focus-visible .linkMain {
+    color: var(--pp-blue);
+  }
+}
+
+/* ── Tablet + mobile (<1024): a flow card anchored under the navbar that fades +
+   slides in (the pill clip-path unfold stops reading once the panel detaches from
+   the bar), with readable fluid link type. ───────────────────────────────────── */
+@media (max-width: 1023px) {
+  .panel {
+    top: calc(24px + var(--pp-tap) + 10px);
+    right: var(--pp-gutter);
+    left: auto;
+    width: min(420px, calc(100vw - 2 * var(--pp-gutter)));
+    height: auto;
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 28px 24px;
+    border-radius: 14px;
+    clip-path: none;
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+    transform-origin: top right;
+    transition:
+      opacity 0.35s var(--pp-ease-out),
+      transform 0.5s var(--pp-ease-out);
+  }
+  .menu[data-state="open"] .panel {
+    clip-path: none;
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.4s var(--pp-ease-out),
+      transform 0.55s var(--pp-ease-out);
+  }
+
+  /* Children flow in the column instead of the absolute artboard coordinates. */
+  .lang,
+  .navLinks,
+  .foot {
+    position: static;
+    inset: auto;
+    width: auto;
+  }
+  .lang {
+    font-size: var(--pp-fs-lead);
+    margin-bottom: 22px;
+  }
+  .navLinks {
+    gap: 6px;
+    margin-bottom: 26px;
+  }
+  .link {
+    font-size: clamp(30px, 6vw, 40px);
+  }
+  .foot {
+    margin-top: 24px;
+  }
+  .logo {
+    width: 24px;
+  }
+  .social {
+    gap: 10px;
+  }
+  .socialLink {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 767px) {
+  .panel {
+    left: var(--pp-gutter);
+    right: var(--pp-gutter);
+    width: auto;
+    max-width: none;
+    padding: 24px;
+  }
+  .link {
+    font-size: clamp(32px, 8.5vw, 44px);
+  }
+}

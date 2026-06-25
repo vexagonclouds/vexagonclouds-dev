@@ -1,0 +1,155 @@
+/* Cases / portfolio — net-new section in A's visual language. Dark editorial
+   ground; a left-aligned header and a responsive auto-fit grid of hairline
+   case cards. Sizes off the fluid tokens (readable minimums at every width). */
+
+.cases {
+  position: relative;
+  background: var(--pp-ink);
+  color: var(--pp-bone);
+  padding-block: clamp(64px, 9vw, 128px);
+  overflow: hidden;
+}
+
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: var(--pp-gutter);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.head {
+  max-width: 720px;
+  margin-bottom: var(--pp-stack);
+}
+.kicker {
+  display: inline-block;
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--pp-blue);
+  margin-bottom: 1.1em;
+}
+.title {
+  display: block;
+  font-size: var(--pp-fs-h2);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--pp-bone);
+}
+.accent {
+  color: var(--pp-blue);
+}
+.sub {
+  margin-top: 0.9em;
+  font-size: var(--pp-fs-lead);
+  line-height: 1.5;
+  color: rgba(247, 244, 240, 0.66);
+  max-width: 58ch;
+}
+
+/* ── Grid of cards ───────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(16px, 2vw, 26px);
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid rgba(247, 244, 240, 0.14);
+  border-radius: 16px;
+  background: rgba(247, 244, 240, 0.025);
+  padding: clamp(20px, 2.4vw, 34px);
+}
+
+.chip {
+  align-self: flex-start;
+  font-size: var(--pp-fs-small);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pp-blue);
+  border: 0.5px solid rgba(90, 144, 244, 0.4);
+  border-radius: 999px;
+  padding: 4px 12px;
+  margin-bottom: 1.5em;
+}
+
+.blockTitle {
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(247, 244, 240, 0.5);
+  margin-bottom: 0.45em;
+}
+.blockTitle:not(:first-of-type) {
+  margin-top: 1.3em;
+}
+.text {
+  font-size: var(--pp-fs-body);
+  line-height: 1.55;
+  color: rgba(247, 244, 240, 0.86);
+}
+
+.results {
+  margin-top: 1.5em;
+}
+.resultsTitle {
+  display: inline-block;
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pp-blue);
+  margin-bottom: 0.75em;
+}
+.bullets {
+  list-style: none;
+  display: grid;
+  gap: 0.5em;
+}
+.bullets li {
+  position: relative;
+  padding-left: 1.4em;
+  font-size: var(--pp-fs-body);
+  line-height: 1.45;
+  color: var(--pp-bone);
+}
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pp-blue);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1.7em;
+}
+.tag {
+  font-size: var(--pp-fs-small);
+  color: rgba(247, 244, 240, 0.7);
+  border: 0.5px solid rgba(247, 244, 240, 0.16);
+  border-radius: 7px;
+  padding: 4px 10px;
+}
+
+/* "View more" CTA (home only — caps the grid to 3, links to /portfolio). */
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--pp-stack);
+}
+
+/* Reveal-mask padding so the clip never crops ascenders/descenders. */
+.cases :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}

@@ -1,0 +1,30 @@
+{
+  "label": "What VexagonClouds brings you",
+  "cards": [
+    {
+      "id": "reclaimed-time",
+      "title": "Reclaimed engineering time",
+      "body": "With your cloud and AI foundations handled, your engineers ship features instead of firefighting infrastructure.",
+      "img": "/images/referrals/sliders/reclaimed-time.webp",
+      "imgPos": "50% 70%"
+    },
+    {
+      "id": "better-prepared",
+      "title": "Lower, predictable costs",
+      "body": "Right-sized architecture and ongoing cost optimization — teams routinely see up to 43% lower monthly cloud bills.",
+      "img": "/images/referrals/sliders/slide2.webp"
+    },
+    {
+      "id": "continuity",
+      "title": "Resilience and uptime",
+      "body": "Auto-scaling, zero-downtime migrations and disaster recovery measured in minutes, not days — across every source of load.",
+      "img": "/images/referrals/sliders/slide3.webp"
+    },
+    {
+      "id": "compliant-framework",
+      "title": "A compliant framework",
+      "body": "SOC 2, HIPAA, PCI DSS — we operate within the standards your customers and your auditors require, without reservation.",
+      "img": "/images/referrals/sliders/slide4.webp"
+    }
+  ]
+}

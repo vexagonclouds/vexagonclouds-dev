@@ -1,0 +1,18 @@
+{
+  "hero": {
+    "clients": { "lead": "For your ", "accent": "team." },
+    "firm": "For your roadmap.",
+    "body": "VexagonClouds takes care of the cloud and AI foundations your team depends on — architecture, migration and modernization — so you can focus on building the product. We adapt to your stack and your roadmap.",
+    "cta": { "label": "Start a conversation", "href": "#" },
+    "spiral": {
+      "avatars": [
+        { "id": "1", "ring": "r1", "img": "/images/advisor-2.png" },
+        { "id": "2", "ring": "r1", "img": "/images/advisor-3.png" },
+        { "id": "3", "ring": "r2", "img": "/images/advisor-1.png" },
+        { "id": "4", "ring": "r2", "img": "/images/advisor-5.png" },
+        { "id": "5", "ring": "r3", "img": "/images/advisor-4.png" },
+        { "id": "6", "ring": "r3", "img": "/images/advisor-1.png" }
+      ]
+    }
+  }
+}

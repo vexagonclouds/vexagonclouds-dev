@@ -1,0 +1,247 @@
+/* Referrers — "You advise high-net-worth clients?" (Figma 68:813).
+   Full-bleed dark band (sits OUTSIDE .page-frame). A centred column:
+   title, an orbital "radar" diagram (P-mark in a glassy chip at centre, three
+   concentric rings, five advisor avatars on the inner/middle orbits), body, CTA.
+   The orbit is one 494×494 coordinate field clipped to the top so rings, mark
+   and avatars share a single % coordinate system. */
+
+.referrers {
+  position: relative;
+  width: 100%;
+  min-height: min(100vh, 800px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: calc(76 * var(--pp-scale));
+  background: var(--pp-ink);
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  width: calc(1050 * var(--pp-scale));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(27 * var(--pp-scale));
+  text-align: center;
+}
+
+.title {
+  font-weight: 500;
+  font-size: calc(49 * var(--pp-scale));
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--pp-bone);
+}
+
+/* ── Orbital diagram ──────────────────────────────────────────────────────── */
+.orbit {
+  position: relative;
+  width: calc(593 * var(--pp-scale));
+  height: calc(358 * var(--pp-scale));
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 60%);
+  mask-image: linear-gradient(to bottom, #000 50%, transparent 60%);
+}
+.rings circle {
+  fill: none;
+  stroke: rgba(247, 244, 240, 0.28);
+  stroke-width: 1;
+}
+.rings .ringOuter {
+  stroke: rgba(247, 244, 240, 0.32);
+  stroke-dasharray: 3 7;
+  stroke-linecap: round;
+}
+
+/* Centre chip — glassy circle holding the inlined P-mark (themed via tokens). */
+.mark {
+  position: absolute;
+  left: 39.879%;
+  top: 39.676%;
+  width: 20.243%;
+  aspect-ratio: 100 / 101.724;
+  border-radius: 50%;
+  background: linear-gradient(
+    to bottom,
+    rgba(247, 244, 240, 0.06),
+    rgba(247, 244, 240, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.mark svg {
+  height: 46%;
+  width: auto;
+}
+.mark :global(.lk-mark__stem) {
+  fill: var(--pp-lockup-ink);
+}
+.mark :global(.lk-mark__blade) {
+  fill: var(--pp-lockup-blade);
+}
+
+/* Orbit layers — each fills the field (so % avatar positions are unchanged) and
+   carries one ring's avatars. GSAP spins these around the field centre. */
+.orbitLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Advisor avatars — 37px circles on the orbits (positions are % of the field). */
+.avatar {
+  position: absolute;
+  width: 7.49%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.avatar[data-avatar="1"] { left: 29.149%; top: 30.162%; }
+.avatar[data-avatar="2"] { left: 63.765%; top: 30.162%; }
+.avatar[data-avatar="3"] { left: 46.154%; top: 8.704%; }
+.avatar[data-avatar="4"] { left: 8.704%; top: 44.939%; }
+.avatar[data-avatar="5"] { left: 83.603%; top: 44.939%; }
+
+/* ── Body + CTA ──────────────────────────────────────────────────────────── */
+.foot {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(27 * var(--pp-scale));
+}
+.body {
+  width: 100%;
+  font-weight: 400;
+  font-size: calc(16 * var(--pp-scale));
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: rgba(247, 244, 240, 0.7);
+}
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: calc(10 * var(--pp-scale)) calc(20 * var(--pp-scale));
+  border-radius: calc(45 * var(--pp-scale));
+  background: var(--pp-blue);
+  color: var(--pp-bone);
+  font-weight: 500;
+  font-size: calc(16 * var(--pp-scale));
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.4s var(--pp-ease-out),
+    transform 0.4s var(--pp-ease-out);
+}
+.cta:hover,
+.cta:focus-visible {
+  background-color: var(--pp-bone);
+  transform: translateY(calc(-2 * var(--pp-scale)));
+}
+
+/* Inverted hover roll — pill fills bone, label rolls up to a Proxy-Blue copy
+   (same mechanic as the shared .pp-btn; kept local since this CTA is full-bleed). */
+.ctaRoll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-block: -0.12em;
+}
+.ctaMain,
+.ctaClone {
+  display: block;
+  padding: 0.12em 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ctaMain {
+  color: var(--pp-bone);
+}
+.ctaClone {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: var(--pp-blue);
+}
+.cta:hover .ctaMain,
+.cta:hover .ctaClone,
+.cta:focus-visible .ctaMain,
+.cta:focus-visible .ctaClone {
+  transform: translateY(-100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .ctaMain,
+  .ctaClone {
+    transition: none;
+  }
+}
+
+/* Per-word reveal mask padding (house style). */
+.referrers :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}
+
+/* ── Tablet + mobile (<1024): already a centred column; cap + centre the orbit,
+   switch to fluid type, and give the CTA fixed readable sizing. The orbit spin +
+   reveal motion is unchanged (svgOrigin is in scale-invariant SVG units). ─────── */
+@media (max-width: 1023px) {
+  .referrers {
+    min-height: 0;
+    padding: var(--pp-stack) var(--pp-gutter);
+    margin:1rem 0;
+  }
+  .content {
+    width: 100%;
+    max-width: 560px;
+    gap: clamp(20px, 5vw, 32px);
+  }
+  .title {
+    font-size: var(--pp-fs-h2);
+  }
+  .orbit {
+    width: min(86vw, 360px);
+    height: auto;
+    aspect-ratio: 593 / 358;
+  }
+  .body {
+    font-size: var(--pp-fs-body);
+  }
+  .cta {
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: var(--pp-fs-body);
+  }
+}

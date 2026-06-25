@@ -1,0 +1,157 @@
+/* Testimonials — net-new section in A's visual language. Dark ground, left
+   header, a horizontal scroll-snap track of quote cards with prev/next pills. */
+
+.section {
+  position: relative;
+  background: var(--pp-ink);
+  color: var(--pp-bone);
+  padding-block: clamp(64px, 9vw, 128px);
+  overflow: hidden;
+}
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: var(--pp-gutter);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.head {
+  max-width: 720px;
+  margin-bottom: var(--pp-stack);
+}
+.kicker {
+  display: inline-block;
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--pp-blue);
+  margin-bottom: 1.1em;
+}
+.title {
+  display: block;
+  font-size: var(--pp-fs-h2);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--pp-bone);
+}
+.accent {
+  color: var(--pp-blue);
+}
+.sub {
+  margin-top: 0.9em;
+  font-size: var(--pp-fs-lead);
+  line-height: 1.5;
+  color: rgba(247, 244, 240, 0.66);
+}
+
+/* ── Carousel ────────────────────────────────────────────────────────────── */
+.carousel {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: clamp(10px, 1.4vw, 16px);
+}
+.track {
+  display: flex;
+  flex: 1 1 auto;
+  gap: clamp(16px, 2vw, 24px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.track::-webkit-scrollbar {
+  display: none;
+}
+.card {
+  flex: 0 0 clamp(280px, 80vw, 420px);
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid rgba(247, 244, 240, 0.14);
+  border-radius: 16px;
+  background: rgba(247, 244, 240, 0.025);
+  padding: clamp(22px, 2.6vw, 36px);
+}
+.stars {
+  font-size: var(--pp-fs-body);
+  letter-spacing: 0.12em;
+  color: var(--pp-blue);
+  margin-bottom: 1em;
+}
+.quote {
+  flex: 1 1 auto;
+  font-size: var(--pp-fs-lead);
+  line-height: 1.5;
+  color: rgba(247, 244, 240, 0.92);
+}
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin-top: 1.6em;
+}
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: rgba(90, 144, 244, 0.16);
+  border: 0.5px solid rgba(90, 144, 244, 0.4);
+  color: var(--pp-blue);
+  font-size: var(--pp-fs-small);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.name {
+  font-size: var(--pp-fs-body);
+  font-weight: 500;
+  color: var(--pp-bone);
+}
+.role {
+  font-size: var(--pp-fs-small);
+  color: rgba(247, 244, 240, 0.55);
+  margin-top: 0.15em;
+}
+
+/* ── Prev / next pills ───────────────────────────────────────────────────── */
+.nav {
+  flex: 0 0 auto;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: transparent;
+  border: 0.5px solid rgba(247, 244, 240, 0.22);
+  color: var(--pp-bone);
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--pp-ease-out),
+    border-color 0.3s var(--pp-ease-out);
+}
+.nav:hover {
+  background: rgba(247, 244, 240, 0.06);
+  border-color: rgba(247, 244, 240, 0.4);
+}
+.nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 767px) {
+  .nav {
+    display: none;
+  }
+}
+
+/* Reveal-mask padding so the clip never crops ascenders/descenders. */
+.section :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}

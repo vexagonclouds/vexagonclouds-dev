@@ -1,0 +1,25 @@
+{
+  "home": { "href": "/", "label": "VexagonClouds home" },
+  "menu": {
+    "open": "Menu",
+    "close": "Close",
+    "openLabel": "Open menu",
+    "closeLabel": "Close menu"
+  },
+  "lang": {
+    "current": "FR",
+    "alt": { "label": "EN", "href": "#" }
+  },
+  "links": [
+    { "label": "Home", "href": "/" },
+    { "label": "Services", "href": "/services" },
+    { "label": "About", "href": "/referrals" },
+    { "label": "Portfolio", "href": "/portfolio" },
+    { "label": "Contact Us", "href": "/contact" }
+  ],
+  "social": [
+    { "label": "Instagram", "href": "#", "icon": "/icons/icon-instagram.svg" },
+    { "label": "X", "href": "#", "icon": "/icons/icon-x.svg" },
+    { "label": "LinkedIn", "href": "#", "icon": "/icons/icon-linkedin.svg" }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "label": "The teams we work with.",
+  "profiles": [
+    { "text": "Startups" },
+    { "text": "Scale-ups" },
+    { "text": "Enterprises" },
+    { "text": "SaaS platforms", "accent": true },
+    { "text": "Fintech & finance" },
+    { "text": "Healthcare & life sciences" },
+    { "text": "Retail & e-commerce" },
+    { "text": "Data & analytics teams" }
+  ]
+}

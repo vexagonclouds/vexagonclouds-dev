@@ -1,0 +1,461 @@
+/* Referrals hero. Ported 1:1 from the Figma 1512×982 artboard (node 421:8): every
+   element is pinned with literal artboard px * var(--pp-scale), so the composition
+   freezes at the design size above 1512px and scales down proportionally below.
+
+   HEIGHT-RESPONSIVE (desktop): the foreground (frame + text) rides a CONTAIN scale
+   — min(width-fit, height-fit) — so the whole one-screen composition always fits the
+   viewport on BOTH axes and never crops on short/landscape laptops, AND grows past
+   the 1512 artboard so the headlines hold the canvas (and read cohesively with the
+   cover-scaled band) instead of freezing small. The hero is min-height:100svh and
+   flex-centres the frame; the band behind it covers the full hero (its own COVER
+   scale, see .bandInner). The text anchors HORIZONTALLY to --pp-nav-inset (the
+   shared navbar gutter), not the centred frame, so firm/clients track the navbar's
+   logo/menu at every width above 1512 instead of drifting into the centre. */
+
+.hero {
+  position: relative;
+  width: 100%;
+  background: var(--pp-ink);
+  overflow: hidden;
+}
+
+/* The artboard frame: full-width, 982 tall, flex-centred in the hero. It is now only
+   the VERTICAL coordinate system (height rides the contain scale); width:100% makes
+   its absolutely-positioned children resolve horizontal offsets against the viewport,
+   so the --pp-nav-inset anchors on .foot / .clients land on the navbar gutters. */
+.frame {
+  position: relative;
+  width: 100%;
+  height: calc(982 * var(--pp-scale));
+  margin-inline: auto;
+}
+
+/* Desktop: make the hero a height-aware, one-screen container and scope the CONTAIN
+   scale here so the frame + text fit the viewport on both axes. No 1px cap — the
+   foreground scales up past 1512 too (still height-bounded, so it never crops).
+   Scoped to ≥1024 so the <1024 reflow (fluid tokens, not --pp-scale) is untouched. */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 100vh; /* fallback */
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --pp-scale: min(100vw / 1512, 100svh / 982);
+  }
+}
+
+/* ── Band backdrop ───────────────────────────────────────────────────────────
+   Decomposed from Figma node 123:369 into real layers (not one baked export):
+   a full-bleed blue bowtie shape, fluffy-cloud wisps revealed through a sky
+   mask, two bone hairline curves, and the live advisor spiral at the waist.
+
+   Built on the homepage hero LENS logic (Hero.module.css .lens/.stage): .band is
+   the crop window. It covers the FULL hero on both axes — 100vw × 100svh, centred
+   on the frame's centre (which the flex hero pins to the viewport centre) via the
+   margin trick (NOT transform: the reveal hook clearProps:"transform" on .band, so
+   centring must survive that). .bandInner holds the 1512×941 composition, cover-
+   scaled and centred inside. The bowtie's flared corner curves must NEVER show: the
+   composition cover-scales on both axes (see .bandInner) so the tips always overflow
+   the window and crop at every size, including short, tall and >1512/2K viewports. */
+.band {
+  position: absolute;
+  left: 50%;
+  margin-left: -50vw;
+  top: 50%;
+  margin-top: -50vh; /* fallback */
+  margin-top: -50svh;
+  width: 100vw;
+  height: 100vh; /* fallback */
+  height: 100svh;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* The composition: the 1512×941 design frame, centred in the crop window so it
+   stays centred when the window is wider (>1512) or shorter (mobile). It carries
+   its OWN --pp-scale, which every layer below inherits via their calc(N*--pp-scale)
+   offsets — so the bowtie, clouds, masked spiral, rings and avatars all scale as a
+   unit and the masks stay aligned. Centring is a transform here (NOT on .band): the
+   reveal hook clearProps:"transform" on .band would wipe it, but never touches this.
+   Cover scale (≥1024): equals the global scale ≤1512 (composition == window, desktop
+   pixel-identical); freezes at 1px on normal big screens; grows past ~2000px so the
+   3715-wide bowtie is always ≥1.85·100vw → flared corners never appear at any size. */
+.bandInner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* COVER scale — fills the hero box on BOTH axes so the bowtie always bleeds
+     full and its flared tips crop on every side. The width terms preserve the
+     ≤1512 look (cover ≈ 1px at the common case); the `100svh / 941` term grows
+     it to cover tall viewports (fixing the 2K corner-bleed, where the window and
+     composition previously scaled by different factors). The window (.band) and
+     this composition now share one scale, so the framing stays proportional. */
+  --pp-scale: max(min(100vw / 1512, 1px), 100vw / 2000, 100svh / 941);
+  width: calc(1512 * var(--pp-scale));
+  height: calc(941 * var(--pp-scale));
+}
+
+/* Blue bowtie shape (node 123:370) — 3715×973, anchored per the artboard and
+   carrying Figma's rotate-180 + vertical-flip (a net horizontal mirror). */
+.bandBlue {
+  position: absolute;
+  left: calc(-981 * var(--pp-scale));
+  top: calc(-32 * var(--pp-scale));
+  width: calc(3715 * var(--pp-scale));
+  height: calc(973 * var(--pp-scale));
+  transform: rotate(180deg) scaleY(-1);
+}
+
+/* Cloud wisps (node 123:397) — one fluffy texture, two instances. In Figma the
+   whole cloud group is masked by the band shape (the Mask group's Subtract); the
+   MCP export flattened that away, so the pair is wrapped here in .clouds — a band-
+   shape clip IDENTICAL to .spiral's (box ≡ .bandBlue, no transform, overflow:hidden,
+   the pre-flopped feathered band alpha at 100% 100% / 0 0). That clips the clouds
+   to the band so they no longer spill onto the dark ink past the curved edges. */
+.clouds {
+  position: absolute;
+  left: calc(-981 * var(--pp-scale));
+  top: calc(-32 * var(--pp-scale));
+  width: calc(3715 * var(--pp-scale));
+  height: calc(973 * var(--pp-scale));
+  overflow: hidden;
+  -webkit-mask-image: url(/images/referrals/band-mask-soft.webp);
+  mask-image: url(/images/referrals/band-mask-soft.webp);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+/* Each cloud — the fluffy texture (cloud-tex carries its OWN soft alpha = the wisp
+   shape), anchored in .clouds' space (origin = frame -981,-32, so +981/+32 vs the
+   band frame). It needs NO per-cloud mask: the wisp shape comes from the texture's
+   alpha, and .clouds clips it to the band. (The Figma per-cloud mask was the band
+   shape, which is redundant with .clouds and — applied in the cloud's mirrored
+   space — produced a hard mis-aligned cut.) */
+.cloud {
+  position: absolute;
+  width: calc(787 * var(--pp-scale));
+  height: calc(787 * var(--pp-scale));
+  object-fit: cover;
+  transform: rotate(180deg) scaleY(-1);
+}
+.cloudA {
+  left: calc(537 * var(--pp-scale));
+  top: calc(-61 * var(--pp-scale));
+}
+.cloudB {
+  left: calc(2190 * var(--pp-scale));
+  top: calc(59 * var(--pp-scale));
+}
+
+/* Bone hairline curves (nodes 123:404 top, 123:405 bottom) — the same squashed
+   ellipse stroke, placed so each arc traces one edge of the band's waist. */
+.hairTop,
+.hairBot {
+  position: absolute;
+  transform: rotate(180deg) scaleY(-1);
+}
+.hairTop {
+  left: calc(-171 * var(--pp-scale));
+  top: calc(-479 * var(--pp-scale));
+  width: calc(2824 * var(--pp-scale));
+  height: calc(867 * var(--pp-scale));
+}
+.hairBot {
+  left: calc(-1159 * var(--pp-scale));
+  top: calc(524 * var(--pp-scale));
+  width: calc(2824 * var(--pp-scale));
+  height: calc(347 * var(--pp-scale));
+}
+
+/* ── Advisor spiral (live) ───────────────────────────────────────────────────
+   The whole diagram is clipped to the blue band shape so nothing spills onto the
+   dark ink: the arcs stay contained, and the orbiting avatars dissolve at the
+   band's curved edges instead of floating onto the ink as they rotate (the same
+   "fade at the diagram edge" idea as home).
+
+   Alignment is offset-free: .spiral's box is IDENTICAL to .bandBlue's (same calc
+   expressions) and the mask paints at 100% 100% / 0 0, so the mask overlays the
+   visible blue by construction at any --pp-scale — no hand-computed offsets to
+   drift. The mask asset is pre-FLOPPED to match .bandBlue's net horizontal mirror
+   (rotate180 + scaleY-1 = scaleX-1), so the feathered alpha edge sits exactly on
+   the visible blue edge at every x, including the asymmetric flanks. .spiral never
+   transforms during the reveal, so the clip is static. */
+.spiral {
+  position: absolute;
+  left: calc(-981 * var(--pp-scale));
+  top: calc(-32 * var(--pp-scale));
+  width: calc(3715 * var(--pp-scale));
+  height: calc(973 * var(--pp-scale));
+  overflow: hidden;
+  -webkit-mask-image: url(/images/referrals/band-mask-soft.webp);
+  mask-image: url(/images/referrals/band-mask-soft.webp);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+}
+
+/* 881×881 coordinate field (the largest ring's diameter), centred on the Figma
+   P-node at frame (761.5, 454.5). In .spiral's space (origin = the blue box at
+   frame -981,-32) that centre is (1742.5, 486.5) → field top-left (1302, 46).
+   The viewBox is 0 0 881 881 so circle r-values are literal design pixels. */
+.field {
+  position: absolute;
+  left: calc(1302 * var(--pp-scale));
+  top: calc(46 * var(--pp-scale));
+  width: calc(881 * var(--pp-scale));
+  height: calc(881 * var(--pp-scale));
+}
+
+.rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+/* Three solid rings (r 86.5 · 222.5 · 379.5) carry the avatars; three dashed
+   rings (r 150.5 · 302.5 · 440.5) sit between them. Bone strokes on the blue band. */
+.ringSolid {
+  fill: none;
+  stroke: rgba(247, 244, 240, 0.72);
+  stroke-width: 1.5;
+}
+.ringDash {
+  fill: none;
+  stroke: rgba(247, 244, 240, 0.6);
+  stroke-width: 1.5;
+  stroke-dasharray: 8 11;
+  stroke-linecap: round;
+}
+
+/* Centre P-node — a solid bone disc (58.9px → 6.69% of the field) holding the
+   P-mark (blue blade, ink stem), matching the Figma node. */
+.mark {
+  position: absolute;
+  left: 46.66%;
+  top: 46.66%;
+  width: 6.686%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--pp-bone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.mark svg {
+  height: 46%;
+  width: auto;
+}
+/* Match the navbar logo exactly: ink stem + blue blade on the bone disc (the
+   navbar card uses the same --pp-ink/--pp-blue pair, not the lockup tokens — those
+   default to a bone stem here, which would vanish on the bone disc). */
+.mark :global(.lk-mark__stem) {
+  fill: var(--pp-ink);
+}
+.mark :global(.lk-mark__blade) {
+  fill: var(--pp-blue);
+}
+
+/* Orbit layers — each fills the field so the % avatar positions are unchanged;
+   useReferralsOrbit rotates each (by ring) around the field centre. */
+.orbitLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+/* Advisor avatars — 37px circles (4.2% of the 881 field) at their exact Figma
+   positions on the three solid rings. */
+.avatar {
+  position: absolute;
+  width: 4.2%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* r1 (86.5) */
+.avatar[data-avatar="1"] { left: 56.98%; top: 44.15%; }
+.avatar[data-avatar="2"] { left: 38.71%; top: 51.53%; }
+/* r2 (222.5) */
+.avatar[data-avatar="3"] { left: 23.61%; top: 42.11%; }
+.avatar[data-avatar="4"] { left: 72.30%; top: 49.26%; }
+/* r3 (379.5) */
+.avatar[data-avatar="5"] { left: 5.45%; top: 42.91%; }
+.avatar[data-avatar="6"] { left: 89.67%; top: 57.77%; }
+
+/* ── Headlines ───────────────────────────────────────────────────────────────
+   95px PP Neue Montreal Medium, -1.9px tracking. "clients." turns Proxy Blue. */
+.clients,
+.firm {
+  position: absolute;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--pp-font);
+  font-weight: 500;
+  font-size: calc(95 * var(--pp-scale));
+  line-height: 1.2;
+  letter-spacing: calc(-1.9 * var(--pp-scale));
+  color: var(--pp-bone);
+  white-space: nowrap;
+}
+
+/* "For your clients." — top-right; its right edge ("clients.") sits on the navbar's
+   Menu-button right edge (the shared --pp-nav-inset gutter), so it tracks the navbar
+   at every width instead of freezing in a centred box above 1512. */
+.clients {
+  right: var(--pp-nav-inset);
+  left: auto;
+  top: calc(192 * var(--pp-scale));
+  width: auto;
+  text-align: right;
+}
+.accent {
+  color: var(--pp-blue);
+}
+
+/* "For your firm." — first row of the .foot block. It flows in-column (the shared
+   rule above sets position:absolute for the headlines; firm opts out here so it
+   stacks with the body + CTA). */
+.firm {
+  position: static;
+  left: auto;
+  top: auto;
+  width: 100%;
+}
+
+/* ── Firm headline + body + CTA — one left-aligned column at the navbar gutter ────
+   The three stack as a single block whose left edge ("For your firm.") sits on the
+   navbar logo's left edge (the shared --pp-nav-inset gutter), tracking the navbar at
+   every width. BOTTOM-anchored (not top): the CTA holds a stable bottom line and the
+   block grows UPWARD for longer copy (French ships first, ~20% longer) instead of
+   pushing the CTA toward the frame bottom. 106 = 982 − 876 (design bottom inset). */
+.foot {
+  position: absolute;
+  z-index: 2;
+  left: var(--pp-nav-inset);
+  bottom: calc(106 * var(--pp-scale));
+  top: auto;
+  width: calc(700 * var(--pp-scale));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(36 * var(--pp-scale));
+}
+.body {
+  width: 100%;
+  margin: 0;
+  font-family: var(--pp-font);
+  font-weight: 500;
+  font-size: calc(25 * var(--pp-scale));
+  line-height: 1.2;
+  color: var(--pp-bone);
+}
+
+/* ── Intro armed-hidden states ───────────────────────────────────────────────
+   When JS is present (html.js, set before first paint) the hero paints in its
+   hidden start state so useReferralsHero can reveal it with no flash. Without JS
+   — or under reduced motion (the hook overrides these inline) — it stays settled. */
+:global(html.js) .clients,
+:global(html.js) .firm,
+:global(html.js) .band,
+:global(html.js) .body,
+:global(html.js) .cta {
+  opacity: 0;
+}
+
+/* ── Tablet + mobile reflow (<1024px) ────────────────────────────────────────
+   Below the 1024 breakpoint the section stops riding the 1512 artboard (which
+   would shrink type to nothing) and reflows into a single left-aligned column,
+   per the site convention and the phone mockup (referralsMockPhone.png). Flow
+   order brackets the band between the two headlines: clients → band → firm →
+   body+CTA, echoing the desktop "the network connects clients ↔ firm" idea. */
+@media (max-width: 1023px) {
+  .frame {
+    position: static;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--pp-stack);
+    /* top pad clears the fixed navbar; sides are the shared gutter */
+    padding: calc(var(--pp-tap) + 64px) var(--pp-gutter) var(--pp-stack);
+  }
+
+  /* Headlines — sized to fit the mobile screen (the mockup's oversized bleed was an
+     uncontrolled-font artifact, not the intent). Left-aligned to the gutter, wrapping
+     within the column on the shared fluid display token. "clients." keeps its accent. */
+  .clients,
+  .firm {
+    position: static;
+    left: auto;
+    top: auto;
+    width: 100%;
+    white-space: normal;
+    text-align: left;
+    font-size: var(--pp-fs-display);
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+  }
+  .clients {
+    order: 1;
+  }
+
+  /* Band — same lens crop window, now a full-bleed flow item. align-self:center
+     centres the 100vw window without a transform (the reveal hook clearProps:
+     "transform" on .band would wipe one). The window height is a controlled clamp;
+     the taller composition is cropped to the waist slice (like the lens on mobile). */
+  .band {
+    order: 2;
+    position: relative;
+    left: auto;
+    margin-left: 0;
+    top: auto;
+    margin-top: 0;
+    align-self: center;
+    width: 100vw;
+    height: clamp(220px, 58vw, 360px);
+  }
+  /* The fixed-aspect spiral can't object-fit:fill-stretch like the lens image, so the
+     composition scales to fit the spiral to ~viewport width (≈85% on phones; capped so
+     it isn't oversized on large tablets). The window still crops the bowtie's tips. */
+  .bandInner {
+    --pp-scale: min(100vw / 1040, 0.62px);
+  }
+
+  /* Firm + body + CTA block — static, full-width, left-aligned, stacked with the
+     shared column gap (it now leads with the firm headline). The CTA's own size
+     comes from the global .pp-btn mobile rule in globals.css. */
+  .foot {
+    order: 4;
+    position: static;
+    left: auto;
+    top: auto;
+    width: 100%;
+    gap: var(--pp-stack);
+  }
+  .body {
+    font-size: var(--pp-fs-body);
+  }
+}

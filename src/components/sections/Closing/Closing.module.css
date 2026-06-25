@@ -1,0 +1,172 @@
+/* Closing — "Take back control of what is yours" (Figma 58:248). The page's
+   final CTA: a short Bone White band with an oversized Proxy Blue headline
+   (upper-left) and, lower-right, the "Request a discovery meeting" link over a
+   line of reassurance copy. LIGHT surface (navbar flips light). Full-bleed
+   (outside .page-frame); .inner re-creates the 1512px frame so the
+   corner-anchored blocks resolve their absolute positions. */
+
+.closing {
+  position: relative;
+  width: 100%;
+  min-height: calc(523 * var(--pp-scale));
+  display: flex;
+  justify-content: center;
+  background: var(--pp-bone);
+  border-radius: calc(20 * var(--pp-scale));
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  width: min(100vw, 1512px);
+}
+
+.title {
+  position: absolute;
+  left: calc(75 * var(--pp-scale));
+  top: calc(94 * var(--pp-scale));
+  width: calc(672 * var(--pp-scale));
+  font-weight: 500;
+  font-size: calc(76 * var(--pp-scale));
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--pp-blue);
+}
+
+.action {
+  position: absolute;
+  left: calc(750 * var(--pp-scale));
+  top: calc(306 * var(--pp-scale));
+  width: calc(687 * var(--pp-scale));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(22 * var(--pp-scale));
+}
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(6 * var(--pp-scale));
+  padding-bottom: calc(6 * var(--pp-scale));
+  border-bottom: 1px solid var(--pp-blue);
+  font-weight: 500;
+  font-size: calc(16 * var(--pp-scale));
+  color: var(--pp-blue);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.link svg {
+  width: calc(18 * var(--pp-scale));
+  height: calc(18 * var(--pp-scale));
+  stroke: currentColor;
+  transition: transform 0.4s var(--pp-ease-out);
+}
+.link:hover svg {
+  transform: translateX(calc(4 * var(--pp-scale)));
+}
+
+/* Hover roll — label rests ink and rolls up to a Proxy-Blue copy (same mechanic as
+   the Trust certs / menu links). The blue underline + arrow stay (the link keeps
+   color:var(--pp-blue); only the label resets to ink). */
+.linkRoll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-block: -0.12em;
+}
+.linkMain,
+.linkClone {
+  display: block;
+  padding: 0.12em 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.linkMain {
+  color: var(--pp-ink);
+}
+.linkClone {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: var(--pp-blue);
+}
+.link:hover .linkMain,
+.link:hover .linkClone,
+.link:focus-visible .linkMain,
+.link:focus-visible .linkClone {
+  transform: translateY(-100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .linkMain,
+  .linkClone {
+    transition: none;
+  }
+  .link:hover .linkMain,
+  .link:hover .linkClone,
+  .link:focus-visible .linkMain,
+  .link:focus-visible .linkClone {
+    transform: none;
+  }
+  .link:hover .linkMain,
+  .link:focus-visible .linkMain {
+    color: var(--pp-blue);
+  }
+}
+.body {
+  width: 100%;
+  font-weight: 400;
+  font-size: calc(16 * var(--pp-scale));
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  text-align: right;
+  color: rgba(22, 23, 24, 0.7);
+}
+
+/* Per-word reveal mask padding (house style). */
+.closing :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}
+
+/* ── Tablet + mobile (<1024): the corner-anchored headline + action block stack
+   into one left-aligned column with fluid type. Reveal animation unchanged. ───── */
+@media (max-width: 1023px) {
+  .closing {
+    min-height: 0;
+    border-radius: 16px;
+    padding: var(--pp-stack) var(--pp-gutter);
+    align-items: stretch;
+  }
+  .inner {
+    width: 100%;
+  }
+  .closing .title {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    max-width: 14ch;
+    font-size: var(--pp-fs-display);
+  }
+  .closing .action {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+    align-items: flex-start;
+    margin-top: var(--pp-stack);
+    gap: clamp(14px, 3vw, 22px);
+  }
+  .closing .body {
+    font-size: var(--pp-fs-body);
+    text-align: left;
+  }
+  .closing .link {
+    font-size: var(--pp-fs-body);
+    gap: 6px;
+  }
+  .closing .link svg {
+    width: 18px;
+    height: 18px;
+  }
+}

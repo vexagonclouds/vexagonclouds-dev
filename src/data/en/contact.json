@@ -1,0 +1,29 @@
+{
+  "kicker": "— Get in touch",
+  "email": "info@vexagonclouds.com",
+  "fields": {
+    "name": "Full name",
+    "email": "Email address",
+    "company": "Company",
+    "interest": "I'm interested in",
+    "message": "Tell us about your project"
+  },
+  "interestPlaceholder": "Select a service…",
+  "interestOptions": [
+    "AWS Cloud Architecture",
+    "Cloud Migration",
+    "AI Adoption",
+    "Digital Transformation",
+    "Scalable Application Development",
+    "Other / Not sure yet"
+  ],
+  "messagePlaceholder": "A few sentences about your goals, timeline, and current stack…",
+  "submit": "Send Message",
+  "emailDirect": "Or email us directly",
+  "status": {
+    "sending": "Sending…",
+    "success": "Thanks — your message is on its way. We'll be in touch shortly.",
+    "network": "Something went wrong sending the form. Please email us directly.",
+    "error": "Please add your name, email and a short message."
+  }
+}

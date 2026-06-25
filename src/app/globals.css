@@ -1,0 +1,476 @@
+/* Proxy Papers — global theme.
+   Ported from design-final/styles/theme.css: brand tokens, reset, theme
+   contexts, the capped content frame, Lenis base, shared lockup + reveal
+   primitives. Component styles live in their own *.module.css. No Tailwind. */
+
+:root {
+  /* Brand palette — three restrained roles. */
+  --pp-blue: #5a90f4;
+  --pp-ink: #161718;
+  --pp-bone: #f7f4f0;
+
+  /* Type — the family name comes from next/font/local (see src/lib/fonts.ts). */
+  --pp-font:
+    var(--font-pp-neue-montreal), "Neue Haas Grotesk", "Inter", system-ui,
+    sans-serif;
+
+  /* Lockup theming hooks — flip per theme context below. */
+  --pp-lockup-ink: var(--pp-bone);
+  --pp-lockup-blade: var(--pp-blue);
+
+  /* Navbar foreground — links + hairline, flipped per theme. */
+  --pp-nav-fg: var(--pp-bone);
+  --pp-nav-hairline: rgba(247, 244, 240, 0.5);
+
+  /* Motion — the house curve (expo-out). */
+  --pp-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ── Responsive scale ──────────────────────────────────────────────────────
+     The design is a fixed 1512px Figma artboard. --pp-scale is the rendered
+     LENGTH of one design pixel: 1px at ≥1512 (content freezes, backgrounds
+     bleed), shrinking proportionally below. Size anything by multiplying the
+     bare Figma px number the inspector shows — note: NO px unit on the number:
+       width: calc(64 * var(--pp-scale));
+     One source of truth for the design width; a port is "type the number".
+     (A unitless viewport ratio isn't expressible in CSS, so the scale carries
+     the px and the multiplier is unitless.) Theme-independent. Opt out by
+     writing a plain px unit (borders, hairlines, fixed UI). A future mobile
+     phase adds a floor + reflow here, in this one token. */
+  --pp-scale: min(100vw / 1512, 1px);
+
+  /* ── Height-responsiveness when porting (read before pinning a section height) ──
+     --pp-scale is WIDTH-driven only. So `height: calc(N * var(--pp-scale))` makes
+     a height depend on viewport WIDTH, ignoring viewport HEIGHT — which crops
+     content on short/landscape laptops and bleeds full-bleed art at 2K. Three rules:
+
+     1. ONE-SCREEN (hero) sections — must fit a single screen, never crop:
+        scope a CONTAIN scale on the section and centre the artboard, e.g.
+          @media (min-width:1024px){ .hero{
+            min-height:100vh; min-height:100svh;       (svh = toolbar-safe)
+            display:flex; align-items:center; justify-content:center;
+            --pp-scale: min(100vw/ARTW, 100svh/ARTH); } }   (drop the 1px cap to let
+        the foreground also GROW past the artboard, still height-bounded so it never
+        crops). The height term shrinks the whole composition to fit short viewports.
+        NEVER give such a frame a fixed `height: calc(N*--pp-scale)` alone. And anchor
+        edge-hugging text HORIZONTALLY to --pp-nav-inset (the shared navbar gutter),
+        NOT to the centred frame — so it tracks the navbar above 1512 instead of
+        freezing mid-canvas (give the frame width:100% so child offsets are viewport-
+        relative). See ReferralsHero .clients / .foot.
+
+     2. FULL-BLEED BACKGROUNDS — must cover, tips always cropped:
+        own overflow:hidden window sized to the section box (100vw × 100svh,
+        centred via the margin trick — NOT transform, which reveal hooks clear),
+        and a COVER scale that fills both axes, e.g.
+          --pp-scale: max(min(100vw/ARTW,1px), 100vw/CAP, 100svh/BGH);
+        (See ReferralsHero .band / .bandInner for a worked example.)
+
+     3. FLOW (scrollable) sections — content taller than a screen is fine:
+        keep the width-only --pp-scale but use `min-height` (never fixed `height`)
+        so content can grow, and don't let `overflow:hidden` clip real content. */
+
+  /* Bespoke navbar side inset — a deliberately non-linear margin that widens
+     faster than the artboard above 1512 (so the bar never spans edge-to-edge on
+     huge screens). NOT a simple scale; shared by Navbar + the Menu panel anchor. */
+  --pp-nav-inset: max(5.1587vw, 15.441vw - 155.5px);
+
+  /* ── Responsive layout model ────────────────────────────────────────────────
+     Breakpoints (desktop-first; @media needs literal px, so these are documented,
+     not consumed as variables):
+       ≥1024px  — DESKTOP: the 1512 artboard via --pp-scale (above).
+       768–1023 — TABLET:  bespoke reflow layout (@media max-width:1023px).
+       <768px   — MOBILE:  bespoke reflow layout (@media max-width:767px).
+     Below 1024 sections STOP riding --pp-scale (it would shrink type to nothing)
+     and size off the fluid tokens below, which carry readable minimums. New pages
+     should reuse these rather than re-deriving per-section values. */
+
+  /* Fluid type ramp — clamp(min, vw-preferred, desktop-cap). Used in the tablet +
+     mobile bands so type scales smoothly between breakpoints but never goes tiny. */
+  --pp-fs-display: clamp(40px, 7.5vw, 76px); /* oversized headline (Hero, Closing) */
+  --pp-fs-h2: clamp(28px, 5.2vw, 49px); /* section titles */
+  --pp-fs-h3: clamp(22px, 3.6vw, 32px); /* step name, card name */
+  --pp-fs-lead: clamp(17px, 2.4vw, 20px); /* lede, large links */
+  --pp-fs-body: clamp(15px, 1.9vw, 17px); /* body copy */
+  --pp-fs-small: clamp(12px, 1.5vw, 14px); /* eyebrow, legal, chips */
+
+  /* Fluid spacing — page side gutter + vertical rhythm for reflowed layouts. */
+  --pp-gutter: clamp(20px, 6vw, 48px);
+  --pp-stack: clamp(28px, 7vw, 72px);
+
+  /* Minimum comfortable touch target (navbar pill, menu controls below 1024). */
+  --pp-tap: 44px;
+}
+
+/* Theme contexts — set one on a wrapper to fix its ground + lockup tone. */
+.pp-theme-blue {
+  --pp-ground: var(--pp-blue);
+  --pp-lockup-ink: var(--pp-bone);
+  --pp-lockup-blade: var(--pp-bone);
+}
+.pp-theme-dark {
+  --pp-ground: var(--pp-ink);
+  --pp-lockup-ink: var(--pp-bone);
+  --pp-lockup-blade: var(--pp-blue);
+}
+.pp-theme-light {
+  --pp-ground: var(--pp-bone);
+  --pp-lockup-ink: var(--pp-ink);
+  --pp-lockup-blade: var(--pp-blue);
+  --pp-nav-fg: var(--pp-ink);
+  --pp-nav-hairline: rgba(22, 23, 24, 0.18);
+}
+
+/* Reset */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--pp-ground, var(--pp-bone));
+  color: var(--pp-bone);
+  font-family: var(--pp-font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg {
+  display: block;
+}
+
+/* Capped content frame — wraps everything below the hero, centred and frozen at
+   the 1512px design width. Sections size off literal px * var(--pp-scale), so no
+   container-query basis is needed here. */
+.page-frame {
+  max-width: 1512px;
+  margin-inline: auto;
+}
+
+/* Subpage lead — top padding so a route's FIRST section clears the fixed navbar
+   (the home/services/referrals heroes carry their own clearance). The light
+   variant matches a bone first section so the cleared band doesn't read as a dark
+   gap above it. */
+.subpage-lead {
+  padding-top: clamp(120px, 16vh, 200px);
+}
+.subpage-lead-light {
+  background: var(--pp-bone);
+}
+
+/* Lenis smooth-scroll base (library-recommended). */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Shared lockup — parts read the theme hooks, never hard-coded colour. */
+.pp-lockup {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.pp-lockup .lk-mark__stem,
+.pp-lockup .lk-word {
+  fill: var(--pp-lockup-ink);
+}
+.pp-lockup .lk-mark__blade {
+  fill: var(--pp-lockup-blade);
+}
+
+/* Per-word/letter reveal masks — a glyph wrapped in .r-word clips to its box;
+   the inner span rises in from below. */
+.r-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.r-word__in {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Shared pill button (hero CTA, profiles CTA, …) — one definition, blue ground.
+   On hover the pill fills bone and the label rolls up, swapping to a Proxy-Blue copy
+   (the inverted form of the Trust/menu roll-to-blue). overflow:hidden masks the roll. */
+.pp-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: calc(10 * var(--pp-scale)) calc(20 * var(--pp-scale));
+  border-radius: calc(45 * var(--pp-scale));
+  background: var(--pp-blue);
+  color: var(--pp-bone);
+  font-weight: 500;
+  font-size: calc(16 * var(--pp-scale));
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background-color 0.4s var(--pp-ease-out),
+    transform 0.3s var(--pp-ease-out);
+}
+.pp-btn:hover,
+.pp-btn:focus-visible {
+  background-color: var(--pp-bone);
+  transform: translateY(-1px);
+}
+.pp-btn__roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-block: -0.12em;
+}
+.pp-btn__main,
+.pp-btn__clone {
+  display: block;
+  padding: 0.12em 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pp-btn__main {
+  color: var(--pp-bone);
+}
+.pp-btn__clone {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  color: var(--pp-blue);
+}
+.pp-btn:hover .pp-btn__main,
+.pp-btn:hover .pp-btn__clone,
+.pp-btn:focus-visible .pp-btn__main,
+.pp-btn:focus-visible .pp-btn__clone {
+  transform: translateY(-100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .pp-btn,
+  .pp-btn__main,
+  .pp-btn__clone {
+    transition: none;
+  }
+}
+/* Below 1024 the shared pill leaves the artboard scale for fixed, readable,
+   tappable sizing (used by the Hero + Profiles CTAs). */
+@media (max-width: 1023px) {
+  .pp-btn {
+    padding: 13px 24px;
+    border-radius: 999px;
+    font-size: var(--pp-fs-body);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Onboarding overlay + intro handoff — ported from styles/onboarding.css and
+   styles/intro.css. The welcome screen layers as a FIXED overlay above the hero
+   and the curtain wipe hands off to it on load. Global class names (the intro
+   controller queries them directly); this is one-off page furniture. Lengths are
+   a fraction of the 1512×982 Figma frame, so the composition scales as drawn.
+   Settled / no-JS / reduced motion: the overlay is hidden and the hero shows. */
+.ob-stage {
+  display: none;
+}
+html.js .ob-stage {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--pp-blue);
+  isolation: isolate;
+  will-change: clip-path;
+}
+
+.ob-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.1;
+  background-image: url("/images/grain.webp");
+  background-repeat: repeat;
+  background-size: 380px 380px;
+}
+
+.ob-watermark {
+  position: absolute;
+  top: -5.7vh;
+  right: -13.77vw;
+  height: 115.05vh;
+  aspect-ratio: 755.212 / 1129.77;
+  z-index: 2;
+  color: #404243;
+  opacity: 0.2;
+  pointer-events: none;
+}
+.ob-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ob-cloud {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: screen;
+}
+.ob-cloud img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ob-cloud--left {
+  left: -82.67vw;
+  top: -22.6vh;
+  width: 108.6vw;
+  height: 108.6vw;
+}
+.ob-cloud--top-right {
+  left: 65vw;
+  top: -98.8vh;
+  width: 108.6vw;
+  height: 108.6vw;
+}
+
+/* Tablet + mobile (<1024): the desktop vh anchors push the top-right cloud entirely
+   above a portrait viewport (only the left cloud's corner shows), leaving the
+   welcome lopsided. Re-pin the pair to opposite corners — one feathering in from the
+   TOP-LEFT, one from the BOTTOM-RIGHT — so the diagonal reads on a tall screen. Size
+   stays 108.6vw; each is offset by ~half so a single quadrant fills its corner. */
+@media (max-width: 1023px) {
+  .ob-cloud--left {
+    left: -50vw;
+    top: -55vw;
+    right: auto;
+    bottom: auto;
+  }
+  .ob-cloud--top-right {
+    left: auto;
+    top: auto;
+    right: -50vw;
+    bottom: -55vw;
+  }
+}
+
+.ob-brand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(96px, 9.3vw, 140px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 4;
+}
+.ob-lockup {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ob-divider {
+  position: relative;
+  width: clamp(154px, 15.47vw, 240px);
+  height: 3px;
+  margin-top: clamp(26px, 2.94vw, 46px);
+}
+.ob-divider__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 1px;
+  height: 1px;
+  background: rgba(247, 244, 240, 0.5);
+}
+.ob-divider__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--pp-bone);
+  border-radius: 999px;
+}
+
+/* Armed (welcome start) states — only with JS; the intro plays from here to the
+   resolved state above. Without JS these never apply, so the page is settled. */
+html.js .ob-cloud {
+  opacity: 0;
+}
+html.js .ob-watermark {
+  opacity: 0;
+}
+html.js .ob-divider__fill {
+  width: 0;
+}
+html.js .ob-lockup {
+  opacity: 0;
+}
+
+/* The flying P-mark clone — a standalone svg lifted ABOVE the overlay so the
+   rising curtain never clips it; it settles into the hero's lens card. */
+.pp-nav-fly {
+  position: fixed;
+  z-index: 250;
+  pointer-events: none;
+  overflow: visible;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+/* The navbar logo and the hero's lens card are armed-hidden with JS and revealed
+   by the curtain landing; no-JS / reduced motion shows them settled. */
+html.js [data-nav-logo] {
+  opacity: 0;
+  transition: opacity 0.35s var(--pp-ease-out);
+}
+html.js [data-nav-logo].is-landed {
+  opacity: 1;
+}
+html.js [data-axis-card] {
+  opacity: 0;
+}
+
+/* Scroll lock while the welcome assembles; released when JS adds .pp-ready.
+   Gated on an onboarding curtain actually being present (:has(.ob-stage)) — pages
+   without a welcome (e.g. /referrals) have nothing to release the lock, so they
+   must never engage it. */
+html.js:not(.pp-ready):has(.ob-stage),
+html.js:not(.pp-ready):has(.ob-stage) body {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Accessibility — opting out of motion resolves to the settled state. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

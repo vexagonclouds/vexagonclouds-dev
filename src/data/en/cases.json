@@ -1,0 +1,113 @@
+{
+  "kicker": "— Case studies",
+  "title": { "lead": ["Our"], "accent": ["recent", "work"] },
+  "sub": "Real engagements, measurable outcomes. Here's a snapshot of how we've helped teams move faster on the cloud.",
+  "more": "View more",
+  "labels": { "challenge": "Challenge", "solution": "Solution", "results": "Results" },
+  "cases": [
+    {
+      "id": "saas-scaling",
+      "category": "Technology",
+      "challenge": "A fast-growing SaaS company struggled with escalating AWS costs and performance bottlenecks as their user base scaled from 10k to 500k users.",
+      "solution": "Implemented auto-scaling architecture, optimized database queries, and introduced caching layers. Migrated to containerized microservices on ECS.",
+      "results": [
+        "43% reduction in monthly AWS costs",
+        "78% improvement in API response times",
+        "Zero downtime during migration",
+        "Scaled to 2M users without infrastructure changes"
+      ],
+      "tags": ["AWS", "Cost Optimization", "Microservices"]
+    },
+    {
+      "id": "legacy-modernization",
+      "category": "Finance",
+      "challenge": "A financial services firm needed to modernize their legacy on-premise infrastructure while maintaining strict compliance and security requirements.",
+      "solution": "Designed hybrid cloud architecture with AWS, implemented encryption at rest and in transit, automated compliance monitoring, and executed phased migration.",
+      "results": [
+        "Achieved SOC 2 Type II compliance",
+        "92% reduction in infrastructure maintenance time",
+        "Improved disaster recovery from 48hrs to 2hrs",
+        "37% cost savings vs. on-premise"
+      ],
+      "tags": ["Cloud Migration", "Security", "Compliance"]
+    },
+    {
+      "id": "ai-diagnosis",
+      "category": "Healthcare",
+      "challenge": "A healthcare provider wanted to leverage AI for patient diagnosis support but lacked the infrastructure and expertise to implement machine learning models.",
+      "solution": "Built HIPAA-compliant ML pipeline on AWS, trained custom models for medical image analysis, and integrated with existing EMR systems.",
+      "results": [
+        "89% accuracy in early disease detection",
+        "67% reduction in diagnosis time",
+        "HIPAA compliant infrastructure",
+        "Processed 50k+ patient records monthly"
+      ],
+      "tags": ["AI/ML", "Healthcare", "HIPAA"]
+    },
+    {
+      "id": "ecommerce-serverless",
+      "category": "Retail",
+      "challenge": "An e-commerce platform experienced frequent outages during peak shopping seasons, resulting in lost revenue and poor customer experience.",
+      "solution": "Implemented serverless architecture with Lambda and DynamoDB, added CloudFront CDN, and built real-time inventory management system.",
+      "results": [
+        "99.99% uptime during Black Friday",
+        "3.2x increase in concurrent users handled",
+        "54% faster page load times",
+        "$2.1M additional revenue during peak season"
+      ],
+      "tags": ["Serverless", "E-commerce", "Performance"]
+    },
+    {
+      "id": "saas-multitenant",
+      "category": "SaaS",
+      "challenge": "A B2B SaaS startup needed to build a scalable multi-tenant platform from scratch with tight budget and timeline constraints.",
+      "solution": "Architected cloud-native solution using AWS services, implemented CI/CD pipeline, and built automated testing framework.",
+      "results": [
+        "Launched MVP in 12 weeks",
+        "Scaled to 200 enterprise customers",
+        "Maintained 99.9% SLA",
+        "73% reduction in deployment time"
+      ],
+      "tags": ["SaaS", "Startup", "Cloud-Native"]
+    },
+    {
+      "id": "data-analytics",
+      "category": "Technology",
+      "challenge": "A data analytics company needed to process and analyze petabytes of data in real-time for their enterprise clients.",
+      "solution": "Built data lake on S3, implemented real-time processing with Kinesis and Lambda, and created interactive dashboards with QuickSight.",
+      "results": [
+        "Process 5TB of data daily",
+        "87% faster insights delivery",
+        "62% cost reduction vs. previous solution",
+        "Real-time analytics for 100+ clients"
+      ],
+      "tags": ["Big Data", "Analytics", "Real-time"]
+    },
+    {
+      "id": "fintech-payments",
+      "category": "Finance",
+      "challenge": "A fintech startup required a secure, scalable payment processing system that could handle high transaction volumes with low latency.",
+      "solution": "Designed event-driven architecture with SQS and SNS, implemented fraud detection with ML, and built PCI DSS compliant infrastructure.",
+      "results": [
+        "Process 10k transactions per second",
+        "99.7% fraud detection accuracy",
+        "PCI DSS Level 1 certified",
+        "Average latency under 100ms"
+      ],
+      "tags": ["Fintech", "Security", "Event-Driven"]
+    },
+    {
+      "id": "telemedicine-scale",
+      "category": "Healthcare",
+      "challenge": "A telemedicine platform needed to scale rapidly during the pandemic while ensuring HIPAA compliance and data security.",
+      "solution": "Migrated to containerized architecture on EKS, implemented end-to-end encryption, and built automated compliance monitoring.",
+      "results": [
+        "Scaled from 5k to 500k daily users",
+        "Zero security incidents",
+        "Maintained HIPAA compliance",
+        "94% patient satisfaction score"
+      ],
+      "tags": ["Telemedicine", "Kubernetes", "Compliance"]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+/* EiySys — "Powered by EIY SYS" partner services on /services. Dark editorial
+   ground; header + a responsive grid of hairline service cards. Fluid tokens. */
+
+.eiysys {
+  position: relative;
+  width: 100%;
+  background: var(--pp-ink);
+  color: var(--pp-bone);
+  padding-block: clamp(56px, 8vw, 112px);
+  overflow: hidden;
+}
+.inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: var(--pp-gutter);
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.head {
+  max-width: 760px;
+  margin-bottom: var(--pp-stack);
+}
+.kicker {
+  display: inline-block;
+  font-size: var(--pp-fs-small);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--pp-blue);
+  margin-bottom: 1.1em;
+}
+.title {
+  display: block;
+  font-size: var(--pp-fs-h2);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--pp-bone);
+}
+.accent {
+  color: var(--pp-blue);
+}
+.sub {
+  margin-top: 0.9em;
+  font-size: var(--pp-fs-lead);
+  line-height: 1.5;
+  color: rgba(247, 244, 240, 0.66);
+  max-width: 60ch;
+}
+
+/* ── Grid ────────────────────────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: clamp(16px, 1.8vw, 24px);
+  align-items: stretch;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 0.5px solid rgba(247, 244, 240, 0.14);
+  border-radius: 16px;
+  background: rgba(247, 244, 240, 0.025);
+  padding: clamp(24px, 2.6vw, 36px);
+  transition:
+    border-color 0.4s var(--pp-ease-out),
+    background-color 0.4s var(--pp-ease-out);
+}
+.card:hover {
+  border-color: rgba(90, 144, 244, 0.45);
+  background: rgba(90, 144, 244, 0.06);
+}
+.name {
+  font-size: var(--pp-fs-h3);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--pp-bone);
+  margin-bottom: 0.6em;
+}
+.desc {
+  font-size: var(--pp-fs-body);
+  line-height: 1.55;
+  color: rgba(247, 244, 240, 0.72);
+}
+
+/* Reveal-mask padding (house style). */
+.eiysys :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}

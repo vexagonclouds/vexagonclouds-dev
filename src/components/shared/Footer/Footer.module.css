@@ -1,0 +1,241 @@
+/* Footer — the site close. A Proxy Blue card rounded only at the TOP (flush at
+   the page bottom), reprising the onboarding canvas: grain @10% + the clouds
+   image bled from the top and bottom-left. Content rebuilt into Website B's
+   4-column footer (brand+about / quick links / contact / newsletter) over a
+   legal bar, in A's visual language using the fluid tokens. BLUE surface. */
+
+.footer {
+  position: relative;
+  width: 100%;
+  margin-top: 1rem;
+  padding-block: clamp(64px, 8vw, 120px) clamp(28px, 3vw, 44px);
+  background: var(--pp-blue);
+  border-radius: calc(20 * var(--pp-scale)) calc(20 * var(--pp-scale)) 0 0;
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--pp-bone);
+}
+
+/* ── Atmosphere — reused onboarding assets ─────────────────────────────────── */
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.1;
+  background-image: url("/images/grain.webp");
+  background-repeat: repeat;
+  background-size: calc(380 * var(--pp-scale)) calc(380 * var(--pp-scale));
+}
+.cloud {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  user-select: none;
+  mix-blend-mode: screen;
+}
+.cloud img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cloudTop {
+  left: 25.1323vw;
+  top: -81.6138vw;
+  width: 108.598vw;
+  height: 108.598vw;
+}
+.cloudLeft {
+  left: -82.5398vw;
+  top: -24.029vw;
+  width: 108.598vw;
+  height: 108.598vw;
+}
+
+/* ── Content ───────────────────────────────────────────────────────────────── */
+.content {
+  position: relative;
+  z-index: 3;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-inline: var(--pp-gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.3fr 1.3fr;
+  gap: clamp(28px, 4vw, 64px);
+  padding-bottom: clamp(40px, 5vw, 72px);
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.colBrand {
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.mark {
+  width: clamp(52px, 6vw, 76px);
+  height: auto;
+  display: flex;
+  align-items: center;
+}
+.markSvg {
+  width: 100%;
+  height: auto;
+}
+
+.about {
+  font-size: var(--pp-fs-body);
+  line-height: 1.5;
+  color: rgba(247, 244, 240, 0.78);
+  max-width: 34ch;
+}
+
+.heading {
+  font-size: var(--pp-fs-small);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pp-bone);
+  margin-bottom: 1.1em;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+
+.link {
+  display: inline-block;
+  font-size: var(--pp-fs-body);
+  color: var(--pp-bone);
+  text-decoration: none;
+  transition: opacity 0.4s var(--pp-ease-out);
+}
+.link:hover,
+.link:focus-visible {
+  opacity: 0.6;
+  outline: none;
+}
+
+.contactItem {
+  font-size: var(--pp-fs-body);
+  line-height: 1.5;
+  color: rgba(247, 244, 240, 0.78);
+  margin-bottom: 0.55em;
+}
+a.contactItem {
+  display: inline-block;
+}
+
+.social {
+  display: flex;
+  gap: 0.7em;
+  margin-top: 0.9em;
+}
+.socialLink {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 0.5px solid rgba(247, 244, 240, 0.3);
+  color: var(--pp-bone);
+  transition:
+    background-color 0.3s var(--pp-ease-out),
+    border-color 0.3s var(--pp-ease-out);
+}
+.socialLink:hover {
+  background: rgba(247, 244, 240, 0.12);
+  border-color: rgba(247, 244, 240, 0.55);
+}
+.socialLink svg {
+  width: 17px;
+  height: 17px;
+}
+
+.newsletter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 0.5em;
+}
+.newsInput {
+  flex: 1 1 150px;
+  min-width: 0;
+  font-family: inherit;
+  font-size: var(--pp-fs-body);
+  color: var(--pp-bone);
+  background: rgba(247, 244, 240, 0.1);
+  border: 0.5px solid rgba(247, 244, 240, 0.3);
+  border-radius: 999px;
+  padding: 0.7em 1.1em;
+  transition: border-color 0.3s var(--pp-ease-out);
+}
+.newsInput::placeholder {
+  color: rgba(247, 244, 240, 0.55);
+}
+.newsInput:focus {
+  outline: none;
+  border-color: var(--pp-bone);
+}
+.subscribe {
+  flex: 0 0 auto;
+  font-family: inherit;
+  font-size: var(--pp-fs-body);
+  font-weight: 500;
+  color: var(--pp-blue);
+  background: var(--pp-bone);
+  border: none;
+  border-radius: 999px;
+  padding: 0.7em 1.3em;
+  cursor: pointer;
+  transition: filter 0.3s var(--pp-ease-out);
+}
+.subscribe:hover {
+  filter: brightness(0.95);
+}
+
+/* ── Legal bar ───────────────────────────────────────────────────────────────*/
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding-top: clamp(20px, 2.4vw, 30px);
+  border-top: 0.5px solid rgba(247, 244, 240, 0.22);
+}
+.legal {
+  font-size: var(--pp-fs-small);
+  color: rgba(247, 244, 240, 0.8);
+}
+.legalLinks {
+  display: flex;
+  gap: 1.4em;
+}
+
+/* ── Tablet + mobile ─────────────────────────────────────────────────────────*/
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 6vw, 48px);
+  }
+  .colBrand {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 639px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "title": "You lead an ambitious team?",
+  "body": "Startups, scale-ups and enterprises: VexagonClouds takes care of the cloud and AI foundations your team depends on, so you can focus on building the product. We adapt to your stack, your roadmap and your compliance needs.",
+  "cta": { "label": "About VexagonClouds", "href": "/referrals" },
+  "advisors": [
+    { "id": "1", "ring": "inner", "img": "/images/advisor-1.png" },
+    { "id": "2", "ring": "inner", "img": "/images/advisor-2.png" },
+    { "id": "3", "ring": "middle", "img": "/images/advisor-3.png" },
+    { "id": "4", "ring": "middle", "img": "/images/advisor-4.png" },
+    { "id": "5", "ring": "middle", "img": "/images/advisor-5.png" }
+  ]
+}

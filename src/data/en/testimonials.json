@@ -1,0 +1,43 @@
+{
+  "kicker": "— Client voices",
+  "title": { "lead": ["What", "our"], "accent": ["clients", "say"] },
+  "sub": "Honest words from teams we've worked alongside.",
+  "items": [
+    {
+      "initials": "RP",
+      "name": "Raj Patel",
+      "role": "Meridian Labs",
+      "quote": "VexagonClouds transformed our infrastructure, reducing costs by 43% while improving performance. Their AWS expertise is unmatched."
+    },
+    {
+      "initials": "LT",
+      "name": "Lucia Torres",
+      "role": "Coastal Roasters",
+      "quote": "The AI integration they delivered has automated 67% of our manual processes. ROI was achieved in just 4 months."
+    },
+    {
+      "initials": "KA",
+      "name": "Kwame Asante",
+      "role": "Elm & Oak Furniture",
+      "quote": "Their team guided us through a complex cloud migration with zero downtime. Professional, responsive, and highly skilled."
+    },
+    {
+      "initials": "SM",
+      "name": "Sana Mehrotra",
+      "role": "Northwind Analytics",
+      "quote": "The serverless rebuild they delivered cut our cloud bill in half and finally let us ship features instead of firefighting infrastructure. Genuine partners, not just vendors."
+    },
+    {
+      "initials": "DV",
+      "name": "Daniel Vega",
+      "role": "Helio Logistics",
+      "quote": "We came to VexagonClouds with a tangled multi-account AWS setup and walked away with a clean landing zone and clear guardrails. Our engineers move faster and our security team finally sleeps."
+    },
+    {
+      "initials": "PN",
+      "name": "Priya Nair",
+      "role": "Brightline Retail",
+      "quote": "They built our entire data platform on AWS in under three months — Glue, Redshift, the works. Reporting that used to take a day now runs in seconds, and the handover was flawless."
+    }
+  ]
+}

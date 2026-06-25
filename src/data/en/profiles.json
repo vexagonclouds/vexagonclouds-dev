@@ -1,0 +1,43 @@
+{
+  "kicker": "— Our capabilities",
+  "title": { "lead": ["What", "we"], "accent": ["do."] },
+  "sub": "We combine deep technical expertise with strategic business insight to deliver measurable results.",
+  "cards": [
+    {
+      "id": "aws",
+      "icon": "cloud",
+      "name": "AWS Expertise",
+      "desc": "AWS-focused cloud consultancy with deep expertise in cloud architecture, optimization, and cost management."
+    },
+    {
+      "id": "ai",
+      "icon": "sparkle",
+      "name": "AI Adoption",
+      "desc": "Integrate cutting-edge AI solutions to automate processes, enhance decision-making, and drive innovation."
+    },
+    {
+      "id": "digital",
+      "icon": "chart",
+      "name": "Digital Transformation",
+      "desc": "Strategic guidance to modernize your infrastructure, processes, and customer experiences."
+    },
+    {
+      "id": "scalable",
+      "icon": "bolt",
+      "name": "Scalable Development",
+      "desc": "Build robust, high-performance applications designed to scale with your business growth."
+    },
+    {
+      "id": "migration",
+      "icon": "lock",
+      "name": "Seamless Migration",
+      "desc": "Risk-free cloud migration with zero downtime, ensuring business continuity throughout the transition."
+    }
+  ],
+  "cta": {
+    "title": "More services",
+    "text": "Explore the full range of what we build and how we work.",
+    "label": "View all services",
+    "href": "/services"
+  }
+}

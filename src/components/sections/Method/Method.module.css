@@ -1,0 +1,241 @@
+/* The Method (Figma 58:170) — the brand's full-presence moment: a full-bleed
+   Proxy Blue panel (20px radius) with a left/right editorial header above a
+   numbered list of the five locked steps, closed by a bottom-right link. Clean
+   vertical flexbox flow (mirrors the Figma auto-layout); copy is Bone White at
+   varied opacity on the blue ground. Lengths are fractions of the 1512px frame. */
+
+/* Full-bleed exception: above 1512px the blue band fills the viewport width while
+   the content stays capped at the 1512 frame (type + positioning freeze, true to
+   Figma). The inner .frame caps the content column at 1512px; every length is a
+   literal Figma px * var(--pp-scale). */
+.method {
+  position: relative;
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  background: var(--pp-blue);
+  border-radius: calc(20 * var(--pp-scale));
+  overflow: hidden;
+}
+
+.frame {
+  width: 100%;
+  max-width: 1512px;
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  min-height: calc(1242 * var(--pp-scale));
+  padding-inline: calc(76 * var(--pp-scale));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: calc(120 * var(--pp-scale));
+}
+
+/* ── Editorial header ──────────────────────────────────────────────────────*/
+.head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--pp-bone);
+}
+.title {
+  width: calc(637 * var(--pp-scale));
+  font-weight: 500;
+  font-size: calc(49 * var(--pp-scale));
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.titleSeg {
+  display: inline;
+}
+.titleSegMuted {
+  color: rgba(247, 244, 240, 0.6);
+}
+.lede {
+  width: calc(590 * var(--pp-scale));
+  font-weight: 400;
+  font-size: calc(16 * var(--pp-scale));
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  text-align: right;
+  color: rgba(247, 244, 240, 0.7);
+}
+
+/* ── Step list — five rows on a 136px pitch; each closed by a hairline rule ──*/
+.steps {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--pp-scale));
+}
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: calc(13 * var(--pp-scale));
+  padding-bottom: calc(23 * var(--pp-scale));
+  border-bottom: 1px solid rgba(247, 244, 240, 0.28);
+}
+.stepNum {
+  font-weight: 400;
+  font-size: calc(25 * var(--pp-scale));
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: rgba(247, 244, 240, 0.6);
+}
+.stepRow {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  white-space: nowrap;
+}
+.stepName {
+  font-weight: 500;
+  font-size: calc(76 * var(--pp-scale));
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--pp-bone);
+  text-box: trim-both cap alphabetic;
+}
+.stepDesc {
+  font-weight: 400;
+  font-size: calc(22 * var(--pp-scale));
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: rgba(247, 244, 240, 0.6);
+}
+
+/* ── Footer link — bottom-right, underlined, arrow nudges on hover ───────────*/
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(6 * var(--pp-scale));
+  padding-bottom: calc(6 * var(--pp-scale));
+  border-bottom: 1px solid var(--pp-bone);
+  font-weight: 500;
+  font-size: calc(16 * var(--pp-scale));
+  color: var(--pp-bone);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.link svg {
+  width: calc(18 * var(--pp-scale));
+  height: calc(18 * var(--pp-scale));
+  stroke: currentColor;
+  transition: transform 0.4s var(--pp-ease-out);
+}
+.link:hover svg {
+  transform: translateX(calc(4 * var(--pp-scale)));
+}
+
+/* Hover roll — same masked mechanic as the other CTAs/links. On this full-presence
+   blue panel the label is already bone (Proxy Blue is the ground), so there's no
+   further accent to reveal: the roll is motion-only (bone → bone), keeping the gesture
+   consistent alongside the arrow nudge. */
+.linkRoll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  margin-block: -0.12em;
+}
+.linkMain,
+.linkClone {
+  display: block;
+  padding: 0.12em 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.linkClone {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+.link:hover .linkMain,
+.link:hover .linkClone,
+.link:focus-visible .linkMain,
+.link:focus-visible .linkClone {
+  transform: translateY(-100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .linkMain,
+  .linkClone {
+    transition: none;
+  }
+  .link:hover .linkMain,
+  .link:hover .linkClone,
+  .link:focus-visible .linkMain,
+  .link:focus-visible .linkClone {
+    transform: none;
+  }
+}
+
+/* ── Reveal masks (per-word, house style) ──────────────────────────────────*/
+.method :global(.r-word) {
+  padding: 0.06em 0 0.14em;
+  margin: -0.06em 0 -0.14em;
+}
+
+/* ── Tablet + mobile (<1024): the flex flow already stacks; switch off the
+   artboard scale for fluid type, compress spacing, stack the header and each
+   step row (name over description). The reveal animation is unchanged. ──────── */
+@media (max-width: 1023px) {
+  .method {
+    border-radius: 16px;
+  }
+  .content {
+    min-height: 0;
+    padding: var(--pp-stack) var(--pp-gutter);
+    gap: var(--pp-stack);
+    align-items: stretch;
+  }
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .title {
+    width: auto;
+    font-size: var(--pp-fs-h2);
+  }
+  .lede {
+    width: auto;
+    font-size: var(--pp-fs-body);
+    text-align: left;
+  }
+  .steps {
+    gap: clamp(18px, 3.5vw, 30px);
+  }
+  .step {
+    gap: 4px;
+    padding-bottom: clamp(12px, 2.5vw, 20px);
+  }
+  .stepNum {
+    font-size: var(--pp-fs-small);
+  }
+  .stepRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    white-space: normal;
+  }
+  .stepName {
+    font-size: clamp(34px, 7vw, 56px);
+    line-height: 1;
+  }
+  .stepDesc {
+    font-size: var(--pp-fs-lead);
+    white-space: normal;
+  }
+  .link {
+    font-size: var(--pp-fs-body);
+    align-self: flex-start;
+  }
+}
